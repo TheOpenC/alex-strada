@@ -8,10 +8,19 @@
 
 :root {
 
+  /* Site Settings */
+  --site-gutter: 1.5rem;
+    
   /* Fonts */
-  --font-primary: "General Sans", system-ui, sans-serif;
-  /* --font-primary: "DM Sans", system-ui, sans-serif; */
-
+  --font-primary: "Archivo", system-ui, sans-serif;
+  /* --font-primary: "DM Sans", system-ui, sans-serif;  
+  
+    font-family: "General Sans";
+    
+  	font-family: 'Supreme', sans-serif;
+	
+    font-family: 'Archivo', sans-serif; */
+   
   /* Type scale */
   --text-base:    1rem;       /* 18px */
   --text-sm:      0.875rem;   /* ~16px — captions, tags, metadata */
@@ -20,7 +29,7 @@
   --text-h4:      1.5rem;     /* ~27px */
   --text-h3:      2rem;       /* 36px */
   --text-h2:      2.5rem;     /* 45px */
-  --text-h1:      3.5rem;     /* 63px */
+  --text-h1:      2rem;     /* 63px */
 
   /* Type scale — mobile */
   --text-h1-mobile: 2.25rem;
@@ -28,8 +37,11 @@
   --text-h3-mobile: 1.5rem;
 
   /* Font weights */
+  --weight-light:    300;
   --weight-regular:  400;
+  --weight-r-italic: 401;
   --weight-medium:   500;
+  --weight-m-italic: 501;
   --weight-semibold: 600;
   --weight-bold:     700;
 
@@ -47,6 +59,7 @@
   --tracking-body:     0;        /* bodycopy */
   --tracking-wide:     0.01em;   /* captions */
   --tracking-wider:    0.02em;   /* tags */
+  --tracking-titles:   1.2em;
 
   /* Colors */
   --color-bg:           #d4d4d4;
@@ -55,8 +68,12 @@
   --color-text-faint:   rgba(0, 0, 0, 0.4);
   --color-link:         rgba(6, 6, 6, 1);
   --color-active:       #faff6b;
-  --color-header-white: white;
-
+  --color-header:       black;
+  
+  /* Header */
+  --header-padding-lr: 1.5rem; /*1.5rem*/
+  --header-padding-top: calc(var(--space-lg) + 2.5rem); 
+    
   /* Menu */
   --menu-bg:            rgba(20, 20, 20, 0.95);
   --menu-text:          rgba(255, 255, 255, 0.75);
@@ -64,9 +81,11 @@
   --menu-font-size:     1rem;
   --menu-max-width:     400px;
   --menu-dropdown-width: 400px;
-  --menu-top-offset: calc(var(--space-lg) + 2.5rem);
-  --header-padding: 1.5rem;
+  --menu-top-offset: 2.2rem;
+  
   --menu-close-size: 2rem;
+    
+  
     
   /* Spacing */
   --space-xs:   0.5rem;
@@ -76,6 +95,22 @@
   --space-xl:   2.5rem;
 
 }
+
+body, bodycopy,
+h1, h2, h3, h4, h5, h6,
+.gallery_image_caption,
+.thumbnails .title,
+.thumbnails .tags,
+.quick-view-caption,
+.audio-player,
+.shop_product .price,
+.shop_product .button,
+.shop_product .dropdown,
+#shop_button.text,
+#site_menu {
+  font-family: var(--font-primary) !important;
+}
+
 
 html{
 	font-size: 112.5%;
@@ -177,7 +212,7 @@ hr {
  */
 
 bodycopy {
-    font-family:var(--font-primary), Icons;
+    font-family:var(--font-primary);
 	font-size: var(--text-base);
 	font-weight: var(--weight-regular);
 	color: var(--color-text);
@@ -204,22 +239,26 @@ bodycopy a.icon-link:hover {
 }
 
 h1 {
-	font-family: var(--font-primary), Icons;
+	font-family: var(--font-primary);
 	font-style: normal;
-	font-weight: var(--weight-semibold);
-	padding-left: 3rem;
+	font-weight: var(--weight-medium);
+	padding-left: 0; /*3rem;*/
     padding-top: 1rem;
 	margin: 0;
 	font-size: var(--text-h1);
 	line-height: var(--leading-tight);
-    letter-spacing: var(--tracking-tight);
-	color: var(--color-header-white);
+    letter-spacing: .01em;
     white-space: nowrap;
 }
 
+ h1 a {
+	color: var(--color-header);
+    
+}
+/* only for white text 
 [local-style="38394821"] h1, #site_menu_button {
   text-shadow: 0 0.25px 10px rgba(0,0,0,0.5);
-}
+} */
 
 [local-style="38394821"]{
 	position: fixed !important;
@@ -233,23 +272,20 @@ h1 {
 
 [local-style="38394821"] .container_width {
   width: 22% /*!variable_defaults*/;
-  padding: var(--header-padding) !important;
+  padding: var(--header-padding-lr) !important;
 }
 
 [local-style="38394821"] h1 {
   position: fixed !important;
   
-  left: var(--header-padding) !important;
+  left: var(--header-padding-lr) !important;
   pointer-events: auto;
 }
 
- h1 a {
-	color: var(--color-text);
-    
-}
+
 
  h2 {
-	font-family: var(--font-primary), Icons;
+	font-family: var(--font-primary);
 	font-style: normal;
 	font-weight: var(--weight-semibold);
 	padding: 0;
@@ -268,7 +304,7 @@ h2 a {
 
 small {
 	display: inline-block;
-    font-family:var(--font-primary), Icons;
+    font-family:var(--font-primary);
 	font-style: normal;
     font-weight: var(--weight-regular);
     font-size: var(--text-sm);
@@ -288,7 +324,7 @@ Sections
    FRONT PAGE — full bleed slideshow
    ============================================ */
 
-body.homepage .page_container,
+/* body.homepage .page_container,
 body.homepage .container_width,
 body.homepage .content,
 body.homepage .content_padding,
@@ -323,14 +359,10 @@ body.homepage .page_content > div:empty {
   display: none !important;
   line-height: 0 !important;
   height: 0 !important;
-}
+} */
 
-/* Fix Cargo's font-size injection */
-html {
-  font-size: 112.5% !important;
-}
-
-[image-gallery="slideshow"] {
+/* Full bleed Code */
+/* [image-gallery="slideshow"] {
     width: 100vw;
     height: 100vh;
     margin: 0;
@@ -340,7 +372,67 @@ html {
     transform: translateX(-50%);
     position: relative;
     background: var(--slideshow-bg);
+} */
+
+/* ============================================
+   FRONT PAGE — contained slideshow
+   ============================================ */
+
+body.homepage .page_container,
+body.homepage .container_width,
+body.homepage .content,
+body.homepage .content_padding,
+body.homepage bodycopy {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  min-height: unset !important;
 }
+
+body.homepage [image-gallery="slideshow"],
+body.homepage .slick-slider,
+body.homepage .slick-list,
+body.homepage .slick-track {
+  width: calc(100vw - var(--site-gutter) * 2) !important;
+  height: auto !important;
+  margin: 0 !important;
+  margin-top: 5rem !important;
+  max-width: none !important;
+  padding: 0 !important;
+}
+
+body.homepage [image-gallery="slideshow"] img,
+body.homepage .gallery_card_image img {
+  width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important;
+}
+
+body.homepage .page_content br,
+body.homepage .page_content > div:empty {
+  display: none !important;
+  line-height: 0 !important;
+  height: 0 !important;
+}
+
+[image-gallery="slideshow"] {
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  left: 0;
+  transform: none;
+  position: relative;
+}
+
+/* Fix Cargo's font-size injection */
+html {
+  font-size: 112.5% !important;
+}
+
+
 
 [image-gallery="slideshow"] img {
 	width: 100%;
@@ -355,7 +447,7 @@ html {
     font-size: 1.1rem;
 	font-weight: 400;
 	color: rgba(0, 0, 0, 0.4);
-	font-family: var(--font-primary), Icons;
+	font-family: var(--font-primary);
 	font-style: normal;
 	line-height: 1.2;	
 }
@@ -368,25 +460,25 @@ html {
 [data-css-preset] #site_menu_button {
     position: fixed;
     top: .25rem;
-    right: 2rem;
+    right: var(--header-padding-lr);
     z-index: 100;
     background: transparent;
     padding: 6px;
     font-size: 0 !important;
     line-height: 1;
-    color: var(--color-header-white);
+    color: var(--color-header);
 }
 
 /* Hamburger icon */
 [data-css-preset] #site_menu_button::before {
 	content: '☰';
-    top: var(--header-padding) !important;
-    padding-right: 2rem;
-    padding-top: .7rem;
+    top: var(--header-padding-top) !important;
+    
+    padding-top: .5rem;
     font-size: var(--text-h1);
     display: block;
     line-height: 1;
-    color: var(--color-header-white);
+    color: var(--color-header);
 }
 
 #site_menu .indent .indent .indent .page-link > a::before {
@@ -420,7 +512,7 @@ body.mobile #site_menu_button {
    ============================================ */
 
 #site_menu {
-	font-family:var(--font-primary), Icons;
+	font-family:var(--font-primary);
 	background: var(--menu-bg);
 	font-size: var(--menu-font-size);
 	font-style: normal;
@@ -591,8 +683,8 @@ body.mobile #site_menu .close {
 [data-css-preset] .content_padding {
 	padding-top: 2.2rem /*!main_margin*/;
 	padding-bottom: 2.2rem /*!main_margin*/;
-	padding-left: 2.2rem /*!main_margin*/;
-	padding-right: 2.2rem /*!main_margin*/;
+	padding-left: var(--site-gutter)!important; /*!main_margin*/
+	padding-right: var(--site-gutter) !important; /*!main_margin*/
 }
 
 
@@ -639,7 +731,7 @@ div[thumbnails] {
     font-size: 1.5rem;
 	font-weight: 400;
 	color: rgba(0, 0, 0, 0.85);
-	font-family: var(--font-primary), Icons;
+	font-family: var(--font-primary);
 	font-style: normal;
 	line-height: 1.3;
 }
@@ -650,7 +742,7 @@ div[thumbnails] {
     font-size: 1rem;
 	font-weight: 400;
 	color: rgba(0, 0, 0, 0.6);
-	font-family: var(--font-primary), Icons;
+	font-family: var(--font-primary);
 	font-style: normal;
 	line-height: 1.2;
 }
@@ -670,89 +762,12 @@ div[thumbnails] {
  * Shop Button
  */
 
-[data-css-preset] #shop_button {
-	color: rgba(0, 0, 0, 0.85);
-    background: transparent;
-	font-size: 32px;
-    font-style: normal;
-	font-weight: 400;
-    line-height: 1;
-    position: fixed;
-	padding: 6px;
-	top: 1rem /*!shop_button*/;
-	left: 1.5rem /*!shop_button*/;
-}
-
-#shop_button.text {
-    font-size: 1.6rem;
-	font-weight: 400;
-	color: rgba(0, 0, 0, 0.75);
-	font-family:var(--font-primary);
-    padding: 0;
-    line-height: 1.3;
-	font-style: normal;
-}
-
-#shop_button.custom_icon {
-	width: 40px;
-    height: auto;
-}
-
-body.mobile #shop_button:not(.text) {
-	margin: -6px;
-    font-size: 40px;
-}
 
 /*
  * Shop Product Widget
  */
 
-.shop_product {
-    width: 100%;
-	max-width: 22rem;
-    position: relative;
-    display: block;
-}
 
-.shop_product .price {
-	font-family: Diatype, Icons;
-	font-size: 1.6rem;
-	line-height: 1;
-	color: rgba(0, 0, 0, 0.75);
-    display: block;
-    margin-bottom: 1rem;
-	font-style: normal;
-	font-weight: 400;
-}
-
-.shop_product .dropdown {
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif, "Sans Serif", Icons;
-    font-size: 1.3rem;
-    display: inline-block;
-	width: 100%;
-    border: 1px solid rgba(0,0,0,.2);
-    background:  white url(https://static.cargo.site/assets/images/select-line-arrows.svg) no-repeat right;
-    margin-bottom: 1rem;
-    line-height: 1.4;
-    padding: .7rem 2.5rem 0.6rem 1rem;
-	font-style: normal;
-	font-weight: 400;
-    color: rgba(0, 0, 0, 0.75);
-}
-
-.shop_product .button {
-	font-family: Diatype, Icons;
-	font-size: 1.3rem;
-    background: rgba(0, 0, 0, 0.75);
-    color: rgba(255,255,255,1);
-    flex: 0 0 50%;
-    text-align: left;
-    display: inline-block;
-	line-height: 1;
-    padding: .8rem 1rem 0.8rem;
-	font-style: normal;
-	font-weight: 700;
-}
 
 /*
  * Image Zoom
@@ -787,7 +802,7 @@ body.mobile .quick-view {
 }
 
 .quick-view-caption {
-	font-family: var(--font-primary), Icons;
+	font-family: var(--font-primary);
     transition: 100ms opacity ease-in-out;
     position: absolute;
     bottom: 0;
@@ -931,7 +946,7 @@ body.mobile .quick-view {
     background: #fff;
     font-size: 1.4rem;
     line-height: 1.3;
-	font-family: var(--font-primary), Icons;
+	font-family: var(--font-primary);
     font-style: normal;
     font-weight: 400;
     text-align: left;
