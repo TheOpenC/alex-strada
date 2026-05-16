@@ -9,7 +9,7 @@
 :root {
 
   /* Site Settings */
-  --site-gutter: 1.5rem;
+  --site-gutter: 2rem;
     
   /* Fonts */
   --font-primary: "Archivo", system-ui, sans-serif;
@@ -71,8 +71,8 @@
   --color-header:       black;
   
   /* Header */
-  --header-padding-lr: 1.5rem; /*1.5rem*/
-  --header-padding-top: calc(var(--space-lg) + 2.5rem); 
+  
+  --header-top: 	1.5rem; 
     
   /* Menu */
   --menu-bg:            rgba(20, 20, 20, 0.95);
@@ -272,16 +272,21 @@ h1 {
 
 [local-style="38394821"] .container_width {
   width: 22% /*!variable_defaults*/;
-  padding: var(--header-padding-lr) !important;
+  padding-left: var(--site-gutter) !important;
 }
 
 [local-style="38394821"] h1 {
   position: fixed !important;
-  
-  left: var(--header-padding-lr) !important;
+  padding-left: var(--site-gutter) !important;
+  padding-top: var(--header-top) !important;
   pointer-events: auto;
 }
 
+/* removes highlighting for h1 */
+[local-style="38394821"] h1 a,
+[local-style="38394821"] h1 a.active {
+  background-color: transparent !important;
+}
 
 
  h2 {
@@ -396,7 +401,7 @@ body.homepage .slick-list,
 body.homepage .slick-track {
   width: calc(100vw - var(--site-gutter) * 2) !important;
   height: auto !important;
-  margin: 0 !important;
+  
   margin-top: 5rem !important;
   max-width: none !important;
   padding: 0 !important;
@@ -419,12 +424,18 @@ body.homepage .page_content > div:empty {
 [image-gallery="slideshow"] {
   width: auto;
   height: auto;
-  margin: 0;
+  
   padding: 0;
   overflow: hidden;
   left: 0;
   transform: none;
   position: relative;
+}
+
+body.homepage [image-gallery="slideshow"] {
+  margin-left: var(--site-gutter) !important;
+  margin-right: var(--site-gutter) !important;
+  margin-top: 5rem !important;
 }
 
 /* Fix Cargo's font-size injection */
@@ -457,28 +468,29 @@ html {
  */
 
 /* Hamburger Button */
-[data-css-preset] #site_menu_button {
-    position: fixed;
-    top: .25rem;
-    right: var(--header-padding-lr);
-    z-index: 100;
-    background: transparent;
-    padding: 6px;
-    font-size: 0 !important;
-    line-height: 1;
-    color: var(--color-header);
+[data-css-preset] #site_menu_button,
+body.mobile #site_menu_button {
+  position: fixed !important;
+  right: 0 !important;
+  padding-right: var(--site-gutter) !important;
+  padding-top: var(--header-top) !important;
+  margin: 0 !important;
+  z-index: 100 !important;
+  background: transparent !important;
+  font-size: 0 !important;
+  line-height: 1 !important;
+  color: var(--color-header) !important;
 }
 
-/* Hamburger icon */
+
 [data-css-preset] #site_menu_button::before {
-	content: '☰';
-    top: var(--header-padding-top) !important;
-    
-    padding-top: .5rem;
-    font-size: var(--text-h1);
-    display: block;
-    line-height: 1;
-    color: var(--color-header);
+  content: '☰';
+  font-size: var(--text-h1);
+  display: block;
+  line-height: 1;
+  margin: 0 !important;
+  padding: 0 !important;
+  color: var(--color-header);
 }
 
 #site_menu .indent .indent .indent .page-link > a::before {
@@ -490,20 +502,20 @@ html {
 
 /*Switch to X when menu open - override Cargo's display*/
 [data-css-preset] #site_menu_button.active {
-	display: block !important;
+  display: block !important;
 }
 
 [data-css-preset] #site_menu_button.active::before {
-	content: 'X';
+  content: 'X';
 }
 
-body.mobile #site_menu_button {
+/* body.mobile #site_menu_button {
   position: fixed !important;
-  top: .25rem !important;
-  right: 2rem !important;
+  top: var(--site-gutter);
+  right: var(--site-gutter);
   margin: 0 !important;
-  padding: 6px !important;
-}
+  padding: 0 !important;
+} */
 
 
 
