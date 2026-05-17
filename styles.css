@@ -13,6 +13,7 @@
     
   /* Fonts */
   --font-primary: "Archivo", system-ui, sans-serif;
+  --font-secondary: 'Work Sans', sans-serif;
   /* --font-primary: "DM Sans", system-ui, sans-serif;  
   
     font-family: "General Sans";
@@ -72,19 +73,22 @@
   
   /* Header */
   
-  --header-top: 	1.5rem; 
+  --header-top: 	1.75rem; 
     
-  /* Menu */
-  --menu-bg:            rgba(20, 20, 20, 0.95);
-  --menu-text:          rgba(255, 255, 255, 0.75);
-  --menu-text-muted:    rgba(255, 255, 255, 0.4);
-  --menu-font-size:     1rem;
-  --menu-max-width:     400px;
-  --menu-dropdown-width: 400px;
-  --menu-top-offset: 2.2rem;
-  
-  --menu-close-size: 2rem;
-    
+  /* Site Menu */
+  --menu-bg:            white;
+  --menu-text:          black;
+  --menu-text-muted:    rgba(210, 210, 210, 1);
+  --menu-font-size:             1rem;
+  --menu-max-width:             400px;
+  --menu-dropdown-width:        400px;
+  --menu-top-offset:            2.2rem;
+  --menu-top-hamburger-offset: .79rem;
+  --menu-right-hamburger-offset:  1.5rem;
+  --menu-hamburger:             3rem; /* hamburger size */
+  --menu-close-size:            4rem;
+  --menu-close-right:           1.5rem;
+  --menu-close-top:             1.5rem;
   
     
   /* Spacing */
@@ -92,7 +96,7 @@
   --space-sm:   1rem;
   --space-md:   1.5rem;
   --space-lg:   2rem;
-  --space-xl:   2.5rem;
+  --space-xl:   3rem;
 
 }
 
@@ -458,7 +462,7 @@ html {
     font-size: 1.1rem;
 	font-weight: 400;
 	color: rgba(0, 0, 0, 0.4);
-	font-family: var(--font-primary);
+	font-family: var(--font-secondary);
 	font-style: normal;
 	line-height: 1.2;	
 }
@@ -471,21 +475,25 @@ html {
 [data-css-preset] #site_menu_button,
 body.mobile #site_menu_button {
   position: fixed !important;
-  right: 0 !important;
-  padding-right: var(--site-gutter) !important;
-  padding-top: var(--header-top) !important;
+  top: var(--menu-top-hamburger-offset) !important;
+  right: var(--menu-right-hamburger-offset) !important;
+  padding: 0 !important;
   margin: 0 !important;
   z-index: 100 !important;
   background: transparent !important;
   font-size: 0 !important;
-  line-height: 1 !important;
+  line-height: 0 !important;
   color: var(--color-header) !important;
+  width: auto !important;
+  height: auto !important;
+  overflow: hidden !important;
+  text-align: right !important;
 }
 
 
 [data-css-preset] #site_menu_button::before {
   content: '☰';
-  font-size: var(--text-h1);
+  font-size: var(--menu-hamburger);
   display: block;
   line-height: 1;
   margin: 0 !important;
@@ -524,7 +532,7 @@ body.mobile #site_menu_button {
    ============================================ */
 
 #site_menu {
-	font-family:var(--font-primary);
+	font-family:var(--font-secondary);
 	background: var(--menu-bg);
 	font-size: var(--menu-font-size);
 	font-style: normal;
@@ -532,7 +540,7 @@ body.mobile #site_menu_button {
 	
     /* positioning - dropdown below hamburger, top-right */
     position: fixed;
-    top: var(--menu-top-offset);
+    top: 0;
     right: var(--space-lg);
     
     /*size - compact dropdown, not full width */
@@ -550,6 +558,11 @@ body.mobile #site_menu_button {
     padding: var(--space-md) var(--space-lg);
     box-sizing: border-box;
     z-index: 99;
+
+    border: 2px solid black;
+}
+.site-menu a{
+    color: var(--menu-text);
 }
 
 body.mobile #site_menu {
@@ -566,66 +579,82 @@ body.mobile #site_menu {
 /* Projects, About, Nes, Press */
 #site_menu > .page-link > a,
 #site_menu > .set-link > a{
-	font-size: var(--text-h4); /*1.25rem */
+	font-size: var(--text-lead); /*1.25rem */
     
+}
+/* Projects - top level set */
+#site_menu > .set-link > a,
+#site_menu > .set-link > span {
+	color: var(--menu-text);
+	font-weight: var(--weight-bold);
+    margin-top: var(--space-xs);
+    margin-bottom: var(--space-md);
+    display: block;
 }
 
 /*Current, Past - sub-label, slightly smaller */
-#site_menu .indent > .set-link > a {
+#site_menu > .set-link > .indent > .set-link > a,
+#site_menu > .set-link > .indent > .set-link > span {
 	font-size: var(--text-lead); /* 1rem */
-	    
+    color: var(--menu-text-muted);
+    margin-top: var(--space-lg);
+    display: block;	    
 }
 
 /* Space above 'truths' and 'Artist Contract' */
-#site_menu .indent .indent > .page-link > a {
+#site_menu .indent .indent > .page-link > a,
+#site_menu .indent .indent > .page-link > span {
   margin-top: var(--space-xs);
   display: block;
     
 }
 
-/* Projects - top level set */
-#site_menu .set-link > a {
-	color: rgba(255, 255, 255, 1);
-	font-weight: var(--weight-bold);
-    margin-top: var(--space-xs);
-    margin-bottom: var(--space-xs);
-}
 
-/* Public Address, Collective M, truths, Artist, st */
-#site_menu .indent > .set-link > a {
-    font-weight: var(--weight-semibold);
-    
-}
-
-/* Collective Mobilities, truths, Artist Contract — 
-   two indents deep, page-link type, bold */
-#site_menu .indent .indent > .page-link > a{
-  font-weight: var(--weight-semibold);
-  color: rgba(255, 255, 255, 1);   
-  
-}
-
-/* Proposal for a 28th Amendment, Save the Presidents — 
+/* Proposal for a 28th Amendment, Save the Presidents —
+   Collective Mobilities, truths, Artist Contract 
    two indents deep, set-link type, already bold, add breathing room */
-#site_menu .indent .indent > .set-link > a {
+#site_menu > .set-link > .indent > .set-link > .indent > .set-link > a,
+#site_menu > .set-link > .indent > .set-link > .indent > .set-link > span,
+#site_menu .indent .indent > .page-link > a,
+#site_menu .indent .indent > .page-link > span {
   font-weight: var(--weight-semibold);
   font-size: var(--text-base);
-  margin-top: var(--space-xs);
-  display: block;
+  margin-top: var(--space-md);
+  display: block; 
+  color: var(--menu-text);
 }
 
 /*QM, YB, AC, PRH, NP, MM, FW */
-#site_menu .indent .indent .indent > .page-link > a {
-  font-weight: var(--weight-regular);
-  color: var(--color-bg);
+#site_menu .indent .indent .indent > .page-link > a,
+#site_menu .indent .indent .indent > .page-link > span {
+  font-weight: var(--weight-light);
+  margin-top: var(--space-xs);
+  color: var(--menu-text);
+  display: block;
     
 }
 /* About, News, Press — top level page-links, bold with breathing room */
-#site_menu > .page-link > a {
+#site_menu > .page-link > a,
+#site_menu > .page-link > span {
   font-weight: var(--weight-bold);
-  margin-top: var(--space-lg);
+  margin-top: var(--space-md);
   display: block;
-  color: rgba(255, 255, 255, 1);
+  color: var(--menu-text);
+}
+
+/* Just target the space above About */
+#site_menu > .set-link + .page-link > a,
+#site_menu > .set-link + .page-link > span {
+    margin-top: var(--space-xl); 
+}
+
+/* Projects, Current, Past, Proposal, Save the Presidents — labels not links */
+#site_menu > .set-link > a,
+#site_menu > .set-link > .indent > .set-link > a,
+#site_menu > .set-link > .indent > .set-link > .indent > .set-link > a {
+  pointer-events: none;
+  cursor: default;
+  text-decoration: none;
 }
 
 #site_menu a:active {
@@ -638,12 +667,14 @@ body.mobile #site_menu {
 
 #site_menu .close {
 	display: block;
-	color: var(--menu-text-muted);
+	color: var(--menu-text);
 	line-height: 1rem;
 	font-size: var(--menu-close-size);
     cursor: pointer;
     align-self: flex-end;
     margin-bottom: var(--space-sm);
+    right: var(--menu-close-right); 
+    top: var(--menu-close-top);
 }
 
 body.mobile #site_menu .close {
@@ -657,7 +688,8 @@ body.mobile #site_menu .close {
 }
 
 #site_menu .indent {
-	margin-left: 28px;
+	/* margin-left: 28px; */
+    margin-left: 0;
 }
 
 
