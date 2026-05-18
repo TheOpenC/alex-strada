@@ -10,16 +10,14 @@
 
   /* Site Settings */
   --site-gutter: 2rem;
+  --content-max-width: 1500px;
     
   /* Fonts */
   --font-primary: "Archivo", system-ui, sans-serif;
   --font-secondary: 'Work Sans', sans-serif;
   /* --font-primary: "DM Sans", system-ui, sans-serif;  
-  
     font-family: "General Sans";
-    
   	font-family: 'Supreme', sans-serif;
-	
     font-family: 'Archivo', sans-serif; */
    
   /* Type scale */
@@ -50,8 +48,8 @@
   --leading-tight:  1.05;   /* h1 */
   --leading-snug:   1.1;    /* h2 */
   --leading-normal: 1.2;    /* h3, h4 */
-  --leading-body:   1.55;   /* bodycopy */
-  --leading-loose:  1.4;    /* captions, small */
+  --leading-body:   1.35;   /* bodycopy */
+  --leading-loose:  1.55;    /* captions, small */
 
   /* Letter spacing */
   --tracking-tight:   -0.02em;   /* h1 */
@@ -72,16 +70,18 @@
   --color-header:       black;
   
   /* Header */
-  
   --header-top: 	1.75rem; 
     
+  /* Slideshow */
+  --slideshow-top-offset: 3.5rem;
+    
   /* Site Menu */
-  --menu-bg:            white;
+  --menu-bg:            rgba(255, 255, 255, .93);
   --menu-text:          black;
   --menu-text-muted:    rgba(210, 210, 210, 1);
   --menu-font-size:             1rem;
   --menu-max-width:             400px;
-  --menu-dropdown-width:        400px;
+  --menu-dropdown-width:        375px;
   --menu-top-offset:            2.2rem;
   --menu-top-hamburger-offset: .79rem;
   --menu-right-hamburger-offset:  1.5rem;
@@ -97,6 +97,8 @@
   --space-md:   1.5rem;
   --space-lg:   2rem;
   --space-xl:   3rem;
+
+
 
 }
 
@@ -215,7 +217,13 @@ hr {
  * Editor styles
  */
 
-bodycopy {
+/* ============================================
+   PROJECT PAGE — body text
+   ============================================ */
+
+
+bodycopy,
+p {
     font-family:var(--font-primary);
 	font-size: var(--text-base);
 	font-weight: var(--weight-regular);
@@ -223,6 +231,8 @@ bodycopy {
 	font-style: normal;
 	line-height: var(--leading-body);
     letter-spacing: var(--tracking-body);
+  	max-width: 70ch;
+    
 }
 
 bodycopy a {
@@ -242,12 +252,39 @@ bodycopy a.icon-link:hover {
 	padding-bottom: 0;
 }
 
+
+bodycopy p,
+bodycopy div,
+bodycopy {
+  font-family: var(--font-secondary) !important;
+  font-size: var(--text-base) !important;
+  font-weight: var(--weight-regular) !important;
+  line-height: var(--leading-loose) !important;
+  letter-spacing: var(--tracking-body) !important;
+  color: var(--color-text) !important;
+  white-space: normal !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+bodycopy p {
+  margin-top: 0;
+  margin-bottom: var(--space-sm);
+  max-width: 70ch;
+    
+    
+}
+
+bodycopy p:last-child {
+  margin-bottom: 0;
+}
+
 h1 {
 	font-family: var(--font-primary);
 	font-style: normal;
 	font-weight: var(--weight-medium);
-	padding-left: 0; /*3rem;*/
-    padding-top: 1rem;
+	left: 0; /*3rem;*/
+    top: 1rem;
 	margin: 0;
 	font-size: var(--text-h1);
 	line-height: var(--leading-tight);
@@ -275,15 +312,43 @@ h1 {
 }
 
 [local-style="38394821"] .container_width {
-  width: 22% /*!variable_defaults*/;
   padding-left: var(--site-gutter) !important;
 }
 
 [local-style="38394821"] h1 {
   position: fixed !important;
-  padding-left: var(--site-gutter) !important;
-  padding-top: var(--header-top) !important;
+ left: var(--site-gutter) !important;
+  top: var(--header-top) !important;
   pointer-events: auto;
+  padding: 0;
+  margin: 0;
+  max-width: calc(100vw - var(--site-gutter) * 4 - var(--menu-hamburger));
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* color detect for header */
+/* Header default — over white/transparent */
+[local-style="38394821"] h1 a,
+[local-style="38394821"] h1 {
+  color: var(--color-header);
+  transition: color 0.1s ease;
+}
+
+[data-css-preset] #site_menu_button::before {
+  color: var(--color-header);
+  transition: color 0.1s ease;
+}
+
+/* Header over image — flip to white */
+body.header-over-image [local-style="38394821"] h1 a,
+body.header-over-image [local-style="38394821"] h1 {
+  color: white;
+}
+
+body.header-over-image #site_menu_button::before {
+  color: white;
 }
 
 /* removes highlighting for h1 */
@@ -292,6 +357,42 @@ h1 {
   background-color: transparent !important;
 }
 
+
+/*===================
+Title in header css
+=================== */
+/* Desktop — centered between name and hamburger */
+#header-project-title {
+  position: fixed;
+  top: var(--header-top);
+  left: 50%;
+  transform: translateX(-30%);
+  font-family: var(--font-primary);
+  font-size: var(--text-h1);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-header);
+  transition: color 0.1s ease;
+  white-space: nowrap;
+  pointer-events: none;
+  line-height: var(--leading-tight);
+}
+
+body.header-over-image #header-project-title {
+  color: white;
+}
+
+body.homepage #header-project-title {
+  display: none;
+}
+
+/* Mobile — stacked below Alex Strada */
+body.mobile #header-project-title {
+  top: calc(var(--header-top) + var(--text-h1) + 0.25rem);
+  left: var(--site-gutter);
+  transform: none;
+  font-size: var(--text-base);
+}
 
  h2 {
 	font-family: var(--font-primary);
@@ -311,14 +412,30 @@ h2 a {
 	color: var(--color-text);
 }
 
+h3 {
+	font-family: var(--font-primary);
+    font-style: normal;
+    font-weight: var(--weight-medium);
+    padding: 0;
+    margin: 0;
+    font-size: var(--text-h3);
+    line-height: var(--leading-normal);
+    letter-spacing: var(--tracking-snug);
+   
+}
+
 small {
-	display: inline-block;
-    font-family:var(--font-primary);
-	font-style: normal;
-    font-weight: var(--weight-regular);
-    font-size: var(--text-sm);
-	line-height: var(--leading-loose);
-    color: var(--color-text-muted);
+  display: block;
+  text-align: left;
+  margin-top: 0rem;
+  margin-bottom: -1rem;
+  font-size: var(--text-base);
+  font-weight: var(--weight-regular);
+  font-style: normal;
+  color: var(--color-text-muted);
+  font-family: var(--font-secondary);
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-body);
 }
 
  small a {
@@ -406,7 +523,7 @@ body.homepage .slick-track {
   width: calc(100vw - var(--site-gutter) * 2) !important;
   height: auto !important;
   
-  margin-top: 5rem !important;
+  margin-top: var(--slideshow-top-offset) !important;
   max-width: none !important;
   padding: 0 !important;
 }
@@ -456,15 +573,16 @@ html {
     object-position: center;
 }
 
-.gallery_image_caption {
-    margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
-    font-size: 1.1rem;
-	font-weight: 400;
+.gallery_image_caption{
+    text-align: left;
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
+    font-size: var(--text-sm);
+	font-weight: var(--weight-light);
 	color: rgba(0, 0, 0, 0.4);
 	font-family: var(--font-secondary);
 	font-style: normal;
-	line-height: 1.2;	
+	line-height: var(--leading-loose);	
 }
 
 /**
@@ -483,7 +601,6 @@ body.mobile #site_menu_button {
   background: transparent !important;
   font-size: 0 !important;
   line-height: 0 !important;
-  color: var(--color-header) !important;
   width: auto !important;
   height: auto !important;
   overflow: hidden !important;
@@ -499,6 +616,10 @@ body.mobile #site_menu_button {
   margin: 0 !important;
   padding: 0 !important;
   color: var(--color-header);
+  transition: color .1s ease;
+}
+body.header-over-image [data-css-preset] #site_menu_button::before {
+  color: white;
 }
 
 #site_menu .indent .indent .indent .page-link > a::before {
@@ -547,8 +668,7 @@ body.mobile #site_menu_button {
     width: var(--menu-dropdown-width);
 	max-width: var(--menu-dropdown-width);
 	min-width: unset;
-    height: auto;
-    max-height: calc(100vh - var(--menu-top-offset));
+    height: 100vh;
     overflow-y: auto;
     
 	/*layout */
@@ -559,7 +679,7 @@ body.mobile #site_menu_button {
     box-sizing: border-box;
     z-index: 99;
 
-    border: 2px solid black;
+    border: 1.5px solid black;
 }
 .site-menu a{
     color: var(--menu-text);
@@ -579,7 +699,7 @@ body.mobile #site_menu {
 /* Projects, About, Nes, Press */
 #site_menu > .page-link > a,
 #site_menu > .set-link > a{
-	font-size: var(--text-lead); /*1.25rem */
+	font-size: var(--text-h4); /*1.25rem */
     
 }
 /* Projects - top level set */
@@ -587,7 +707,7 @@ body.mobile #site_menu {
 #site_menu > .set-link > span {
 	color: var(--menu-text);
 	font-weight: var(--weight-bold);
-    margin-top: var(--space-xs);
+    
     margin-bottom: var(--space-md);
     display: block;
 }
@@ -595,7 +715,7 @@ body.mobile #site_menu {
 /*Current, Past - sub-label, slightly smaller */
 #site_menu > .set-link > .indent > .set-link > a,
 #site_menu > .set-link > .indent > .set-link > span {
-	font-size: var(--text-lead); /* 1rem */
+	font-size: var(--text-lead); /* 1.25rem */
     color: var(--menu-text-muted);
     margin-top: var(--space-lg);
     display: block;	    
@@ -618,7 +738,7 @@ body.mobile #site_menu {
 #site_menu .indent .indent > .page-link > a,
 #site_menu .indent .indent > .page-link > span {
   font-weight: var(--weight-semibold);
-  font-size: var(--text-base);
+  font-size: var(--text-base); /* 1rem */
   margin-top: var(--space-md);
   display: block; 
   color: var(--menu-text);
@@ -712,7 +832,7 @@ body.mobile #site_menu .close {
 
 [data-css-preset] .container {
 	margin-left: auto /*!content_right*/;
-	margin-right: 0 /*!content_right*/;
+	margin-right: auto /*!content_right*/;
 	text-align: left /*!text_left*/;
 }
 
@@ -721,11 +841,12 @@ body.mobile #site_menu .close {
 }
 
 [data-css-preset] .container_width {
-	width: 22% /*!content_right*/;
+  width: min(100%, var(--content-max-width)) !important;
+ /*!content_right*/;
 }
 
 [data-css-preset] .content_padding {
-	padding-top: 2.2rem /*!main_margin*/;
+	padding-top: calc(var(--header-top) + var(--text-h1) + var(--space-lg)) !important;
 	padding-bottom: 2.2rem /*!main_margin*/;
 	padding-left: var(--site-gutter)!important; /*!main_margin*/
 	padding-right: var(--site-gutter) !important; /*!main_margin*/
