@@ -10,7 +10,7 @@
 
   /* Site Settings */
   --site-gutter: 2rem;
-  --content-max-width: 1500px;
+  --content-max-width: 1250px;
     
   /* Fonts */
   --font-primary: "Archivo", system-ui, sans-serif;
@@ -21,7 +21,7 @@
     font-family: 'Archivo', sans-serif; */
    
   /* Type scale */
-  --text-base:    1rem;       /* 18px */
+  --text-base:    1.111rem;       /* 20px */
   --text-sm:      0.875rem;   /* ~16px — captions, tags, metadata */
   --text-xs:      0.75rem;    /* ~13.5px — footnotes, fine print */
   --text-lead:    1.25rem;    /* ~22px — intro paragraphs */
@@ -54,7 +54,7 @@
   /* Letter spacing */
   --tracking-tight:   -0.02em;   /* h1 */
   --tracking-snug:    -0.015em;  /* h2 */
-  --tracking-normal:  -0.01em;   /* h3 */
+  --tracking-normal:  -0.01em;   /* h3, bodycopy */
   --tracking-body:     0;        /* bodycopy */
   --tracking-wide:     0.01em;   /* captions */
   --tracking-wider:    0.02em;   /* tags */
@@ -66,6 +66,7 @@
   --color-text-muted:   rgba(0, 0, 0, 0.6);
   --color-text-faint:   rgba(0, 0, 0, 0.4);
   --color-link:         rgba(6, 6, 6, 1);
+  --color-hover:		rgba(40, 200, 64, 1);
   --color-active:       #faff6b;
   --color-header:       black;
   
@@ -83,7 +84,7 @@
   --menu-max-width:             400px;
   --menu-dropdown-width:        375px;
   --menu-top-offset:            2.2rem;
-  --menu-top-hamburger-offset: .79rem;
+  --menu-top-hamburger-offset: 1rem;
   --menu-right-hamburger-offset:  1.5rem;
   --menu-hamburger:             3rem; /* hamburger size */
   --menu-close-size:            4rem;
@@ -98,6 +99,12 @@
   --space-lg:   2rem;
   --space-xl:   3rem;
 
+  --space-img:  1rem;
+  --space-cap:  3rem;
+  --space-p:    .25rem;
+  --space-ul-qm: .5rem;
+  --space-h4: 	 2rem;
+  --space-summary: 4rem;
 
 
 }
@@ -168,12 +175,32 @@ s {
 img {
 	border: 0;
 	padding: 0;
+    padding-bottom: var(--space-img) !important;
+}
+
+.image-gallery img{
+	padding: 0 !important;
+}
+.img
+figure{
+	margin: 0;
+}
+figcaption {
+	padding-bottom: var(--space-cap) !important;;
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+}
+.p-lead {
+	font-size: var(--text-lead);
+    padding-top: var(--space-sm);
+    padding-bottom: var(--space-lg);
+    display: block;
 }
 
 ul,
 ol {
 	margin: 0;
-	padding: 0 0 0 2.5em;
+	padding: 0 0 var(--space-sm) 2.5em;
 }
 
 blockquote {
@@ -184,10 +211,11 @@ blockquote {
 hr {
 	background: rgba(0, 0, 0, 0.6);
 	border: 0;
-	height: 2px;
+	height: 1px;
 	display: block;
-    margin-top: 1.0rem;
+    margin-top: var(--space-xl);
     margin-bottom: 1.0rem;
+
 }
 
 .content img {
@@ -201,7 +229,20 @@ hr {
     
 }
 
+a {
+	text-decoration: none;
+    color: var(--color-text);
+}
 
+.map-embed{
+	filter: grayscale(101%) contrast(150%);
+   
+}
+
+
+.workshops-qm p{
+	padding-top: var(--space-ul-qm);
+}
 
 /**
  * Loading Animation
@@ -220,6 +261,19 @@ hr {
 /* ============================================
    PROJECT PAGE — body text
    ============================================ */
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a, 
+[local-style="38394821"] a,
+#site_menu a,
+small a,
+.gallery_image_caption a,
+.thumbnails a {
+  text-decoration: none !important;
+  color: inherit;
+}
+
+.summary {
+	padding-bottom: var(--space-summary);
+}
 
 
 bodycopy,
@@ -230,18 +284,23 @@ p {
 	color: var(--color-text);
 	font-style: normal;
 	line-height: var(--leading-body);
-    letter-spacing: var(--tracking-body);
-  	max-width: 70ch;
+    letter-spacing: .2em;
+  	/*max-width: 70ch; */
+    padding-top: var(--space-p);
+    padding-bottom: var(--space-sm);
+    
     
 }
 
 bodycopy a {
 	color: var(--color-link);
-	text-decoration: none;
+	text-decoration: underline;
 }
 
 bodycopy a:hover {
-
+	color: var(--color-hover);
+    transition: color 0.15s ease;
+    cursor: pointer;
 }
 
 bodycopy a.image-link,
@@ -260,7 +319,7 @@ bodycopy {
   font-size: var(--text-base) !important;
   font-weight: var(--weight-regular) !important;
   line-height: var(--leading-loose) !important;
-  letter-spacing: var(--tracking-body) !important;
+  letter-spacing: var(--tracking-normal) !important;
   color: var(--color-text) !important;
   white-space: normal !important;
   word-wrap: break-word !important;
@@ -270,7 +329,7 @@ bodycopy {
 bodycopy p {
   margin-top: 0;
   margin-bottom: var(--space-sm);
-  max-width: 70ch;
+  /*max-width: 70ch;*/
     
     
 }
@@ -302,27 +361,36 @@ h1 {
 } */
 
 [local-style="38394821"]{
-	position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
+	position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    height: calc(var(--text-h1) * var(--leading-tight) + var(--header-top) * 2) !important;
     width: 100% !important;
     z-index: 10 !important;
     background: transparent !important;
-    pointer-events: none;
+    pointer-events: auto;
+    padding: var(--header-top) var(--site-gutter) var(--space-md);
 }
 
-[local-style="38394821"] .container_width {
-  padding-left: var(--site-gutter) !important;
+[local-style="38394821"] .container_width,
+[local-style="38394821"] .container,
+[local-style="38394821"] .page,
+[local-style="38394821"] bodycopy,
+[local-style="38394821"] .page_content {
+  position: static !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
 [local-style="38394821"] h1 {
-  position: fixed !important;
+  position: absolute !important;
  left: var(--site-gutter) !important;
   top: var(--header-top) !important;
   pointer-events: auto;
   padding: 0;
   margin: 0;
-  max-width: calc(100vw - var(--site-gutter) * 4 - var(--menu-hamburger));
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -363,10 +431,10 @@ Title in header css
 =================== */
 /* Desktop — centered between name and hamburger */
 #header-project-title {
-  position: fixed;
+  position: absolute;
   top: var(--header-top);
   left: 50%;
-  transform: translateX(-30%);
+  transform: translateX(-32.5%);
   font-family: var(--font-primary);
   font-size: var(--text-h1);
   font-weight: var(--weight-regular);
@@ -376,6 +444,7 @@ Title in header css
   white-space: nowrap;
   pointer-events: none;
   line-height: var(--leading-tight);
+  z-index: 5;
 }
 
 body.header-over-image #header-project-title {
@@ -421,7 +490,33 @@ h3 {
     font-size: var(--text-h3);
     line-height: var(--leading-normal);
     letter-spacing: var(--tracking-snug);
-   
+   	padding-bottom: var(--space-md);
+}
+
+h4{
+	font-family: var(--font-primary);
+    font-style: normal;
+    font-weight: var(--weight-medium);
+    padding: 0;
+    margin: 0;
+    font-size: var(--text-h4);
+    line-height: var(--leading-normal);
+    letter-spacing: var(--tracking-normal);
+    padding-top: var(--space-sm);
+    padding-bottom: var(--space-h4);
+    
+    
+}
+
+h5{
+	font-family: var(--primary);
+    font-style: normal;
+    font-weight: var(--weight-semibold);
+    padding:0;
+    margin: 0;
+    font-size: var(--text-h5);
+    line-height: var(--leading-normal)!important;
+    padding-top: var(--space-xs);
 }
 
 small {
@@ -509,8 +604,8 @@ body.homepage .container_width,
 body.homepage .content,
 body.homepage .content_padding,
 body.homepage bodycopy {
-  width: 100% !important;
-  max-width: 100% !important;
+  width: var(--content-max-width) !important;
+  max-width: var(--content-max-width) !important;
   margin: 0 !important;
   padding: 0 !important;
   min-height: unset !important;
@@ -531,6 +626,7 @@ body.homepage .slick-track {
 body.homepage [image-gallery="slideshow"] img,
 body.homepage .gallery_card_image img {
   width: 100% !important;
+  max-width: var(--content-max-width) !important;
   height: auto !important;
   object-fit: contain !important;
 }
@@ -556,7 +652,7 @@ body.homepage .page_content > div:empty {
 body.homepage [image-gallery="slideshow"] {
   margin-left: var(--site-gutter) !important;
   margin-right: var(--site-gutter) !important;
-  margin-top: 5rem !important;
+  margin-top: var(--slideshow-top-offset) !important;
 }
 
 /* Fix Cargo's font-size injection */
@@ -571,6 +667,7 @@ html {
     height: 100%;
     object-fit: cover;
     object-position: center;
+    margin: 0 !important;
 }
 
 .gallery_image_caption{
@@ -589,10 +686,15 @@ html {
  * Site Menu Button
  */
 
+.main_container {
+	
+   position: relative;
+}
+
 /* Hamburger Button */
 [data-css-preset] #site_menu_button,
 body.mobile #site_menu_button {
-  position: fixed !important;
+  position: absolute !important;
   top: var(--menu-top-hamburger-offset) !important;
   right: var(--menu-right-hamburger-offset) !important;
   padding: 0 !important;
@@ -681,6 +783,7 @@ body.header-over-image [data-css-preset] #site_menu_button::before {
 
     border: 1.5px solid black;
 }
+
 .site-menu a{
     color: var(--menu-text);
 }
@@ -813,6 +916,58 @@ body.mobile #site_menu .close {
 }
 
 
+/* =========================
+   Media Row
+   ========================= */
+
+.media-row {
+  --media-ratio:  1 / .64; /* adjust this to match the newspaper */
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+  width: 100%;
+}
+
+.media-item {
+  margin: 0;
+  width: 100%;
+  min-width: 0;
+}
+
+.media-frame {
+  width: 100%;
+  aspect-ratio: var(--media-ratio);
+  overflow: hidden;
+}
+
+.media-frame iframe,
+.media-frame img {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  border: 0;
+}
+
+.media-frame iframe {
+  filter: grayscale(100%) contrast(95%);
+}
+
+.media-frame img {
+  object-fit: contain;
+    object-position: center;
+  padding: 0 !important;
+}
+
+.media-item figcaption {
+  margin-top: 0.5rem;
+  padding-bottom: var(--space-cap) !important;
+  font-size: var(--text-sm);
+  line-height: var(--leading-loose);
+  color: var(--color-text-muted);
+}
+
+
 /**
  * Breakpoints
  */
@@ -846,7 +1001,8 @@ body.mobile #site_menu .close {
 }
 
 [data-css-preset] .content_padding {
-	padding-top: calc(var(--header-top) + var(--text-h1) + var(--space-lg)) !important;
+	/* padding-top: calc(var(--header-top) + var(--text-h1) + var(--space-lg)) !important; */
+  padding-top: var(--slideshow-top-offset);
 	padding-bottom: 2.2rem /*!main_margin*/;
 	padding-left: var(--site-gutter)!important; /*!main_margin*/
 	padding-right: var(--site-gutter) !important; /*!main_margin*/
@@ -1171,5 +1327,3 @@ body.mobile .audio-player {
 .audio-player .total-time {
     padding-right: 1rem;
 }
-
-
