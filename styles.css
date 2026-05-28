@@ -10,7 +10,7 @@
 
   /* Site Settings */
   --site-gutter: 2rem;
-  --content-max-width: 1250px;
+  --content-max-width: 1350px;
     
   /* Fonts */
   --font-primary: "Archivo", system-ui, sans-serif;
@@ -75,6 +75,7 @@
     
   /* Slideshow */
   --slideshow-top-offset: 3.5rem;
+  --project-top-offset: 10.5rem;
     
   /* Site Menu */
   --menu-bg:            rgba(255, 255, 255, .93);
@@ -127,6 +128,7 @@ h1, h2, h3, h4, h5, h6,
 
 html{
 	font-size: 112.5%;
+    scrollbar-gutter: stable;
 }
 
 body {
@@ -181,7 +183,7 @@ img {
 .image-gallery img{
 	padding: 0 !important;
 }
-.img
+
 figure{
 	margin: 0;
 }
@@ -434,7 +436,7 @@ Title in header css
   position: absolute;
   top: var(--header-top);
   left: 50%;
-  transform: translateX(-32.5%);
+  transform: translateX(-50%);
   font-family: var(--font-primary);
   font-size: var(--text-h1);
   font-weight: var(--weight-regular);
@@ -445,6 +447,9 @@ Title in header css
   pointer-events: none;
   line-height: var(--leading-tight);
   z-index: 5;
+  max-width: 33%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 body.header-over-image #header-project-title {
@@ -461,7 +466,14 @@ body.mobile #header-project-title {
   left: var(--site-gutter);
   transform: none;
   font-size: var(--text-base);
+  max-width: 191px;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
 }
+/*===========================
+Typography 
+=============================*/
 
  h2 {
 	font-family: var(--font-primary);
@@ -515,7 +527,7 @@ h5{
     padding:0;
     margin: 0;
     font-size: var(--text-h5);
-    line-height: var(--leading-normal)!important;
+    line-height: var(--leading-body)!important;
     padding-top: var(--space-xs);
 }
 
@@ -682,9 +694,10 @@ html {
 	line-height: var(--leading-loose);	
 }
 
-/**
+
+/**==================================
  * Site Menu Button
- */
+===================================== */
 
 .main_container {
 	
@@ -781,7 +794,7 @@ body.header-over-image [data-css-preset] #site_menu_button::before {
     box-sizing: border-box;
     z-index: 99;
 
-    border: 1.5px solid black;
+    border: 1px solid var(--color-text-faint);
 }
 
 .site-menu a{
@@ -809,9 +822,7 @@ body.mobile #site_menu {
 #site_menu > .set-link > a,
 #site_menu > .set-link > span {
 	color: var(--menu-text);
-	font-weight: var(--weight-bold);
-    
-    margin-bottom: var(--space-md);
+	font-weight: var(--weight-medium);
     display: block;
 }
 
@@ -819,9 +830,10 @@ body.mobile #site_menu {
 #site_menu > .set-link > .indent > .set-link > a,
 #site_menu > .set-link > .indent > .set-link > span {
 	font-size: var(--text-lead); /* 1.25rem */
-    color: var(--menu-text-muted);
-    margin-top: var(--space-lg);
-    display: block;	    
+    color: var(--color-text-faint);
+    margin-top: var(--space-xl);
+    display: block;	
+    font-weight: var(--weight-medium);
 }
 
 /* Space above 'truths' and 'Artist Contract' */
@@ -840,7 +852,7 @@ body.mobile #site_menu {
 #site_menu > .set-link > .indent > .set-link > .indent > .set-link > span,
 #site_menu .indent .indent > .page-link > a,
 #site_menu .indent .indent > .page-link > span {
-  font-weight: var(--weight-semibold);
+  font-weight: var(--weight-medium);
   font-size: var(--text-base); /* 1rem */
   margin-top: var(--space-md);
   display: block; 
@@ -859,7 +871,7 @@ body.mobile #site_menu {
 /* About, News, Press — top level page-links, bold with breathing room */
 #site_menu > .page-link > a,
 #site_menu > .page-link > span {
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-medium);
   margin-top: var(--space-md);
   display: block;
   color: var(--menu-text);
@@ -881,12 +893,30 @@ body.mobile #site_menu {
 }
 
 #site_menu a:active {
-	opacity: .7;
+	
 }
 
 #site_menu a.active {
-	opacity: .4;
+	background-color: rgba(122 255 122 / .7) !important;
+    color: black;
+   
+        
+    
+    
 }
+
+#site_menu a:hover,
+#site_menu a:hover::after{
+	content:"●";
+    transition: color 0.15s ease;
+}
+
+#site_menu a:hover::after{
+   padding-left: 1.5rem;
+	
+    
+}
+
 
 #site_menu .close {
 	display: block;
@@ -917,56 +947,38 @@ body.mobile #site_menu .close {
 
 
 /* =========================
-   Media Row
+   Map and Newspaper accordians
    ========================= */
-
-.media-row {
-  --media-ratio:  1 / .64; /* adjust this to match the newspaper */
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 1rem;
-  align-items: start;
-  width: 100%;
+.newspaper{
+	padding-bottom: var(--space-xl)
 }
 
-.media-item {
-  margin: 0;
-  width: 100%;
-  min-width: 0;
-}
 
-.media-frame {
-  width: 100%;
-  aspect-ratio: var(--media-ratio);
-  overflow: hidden;
-}
-
-.media-frame iframe,
-.media-frame img {
+.accordion-item { margin: 0; }
+.accordion-toggle {
+  cursor: pointer;
   display: block;
-  width: 100% !important;
-  height: 100% !important;
-  border: 0;
+  user-select: none;
 }
-
-.media-frame iframe {
-  filter: grayscale(100%) contrast(95%);
+.accordion-toggle .arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+  margin-right: 4px;
 }
-
-.media-frame img {
-  object-fit: contain;
-    object-position: center;
-  padding: 0 !important;
+.accordion-toggle.open .arrow {
+  transform: rotate(90deg);
 }
-
-.media-item figcaption {
-  margin-top: 0.5rem;
-  padding-bottom: var(--space-cap) !important;
-  font-size: var(--text-sm);
-  line-height: var(--leading-loose);
-  color: var(--color-text-muted);
+.accordion-content {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.5s ease;
 }
-
+.accordion-content.open {
+  max-height: 2000px;
+}
+.accordion-content-inner {
+  padding: 10px 0 20px 0;
+}
 
 /**
  * Breakpoints
@@ -1002,7 +1014,7 @@ body.mobile #site_menu .close {
 
 [data-css-preset] .content_padding {
 	/* padding-top: calc(var(--header-top) + var(--text-h1) + var(--space-lg)) !important; */
-  padding-top: var(--slideshow-top-offset);
+  	padding-top: var(--project-top-offset) !important;;
 	padding-bottom: 2.2rem /*!main_margin*/;
 	padding-left: var(--site-gutter)!important; /*!main_margin*/
 	padding-right: var(--site-gutter) !important; /*!main_margin*/
