@@ -174,10 +174,14 @@ s {
 	text-decoration: line-through;
 }
 
-img{
+img {
 	border: 0;
 	padding: 0;
-  padding-bottom: var(--space-img) !important;
+    padding-bottom: var(--space-img) !important;
+}
+
+figure:has(figcaption) > div:has(iframe) {
+  margin-bottom: var(--space-img);
 }
 
 .image-gallery img{
@@ -187,7 +191,7 @@ img{
 figure{
 	margin: 0;
 }
-figcaption{
+figcaption {
 	padding-bottom: var(--space-cap) !important;;
     font-size: var(--text-sm);
     color: var(--color-text-muted);
