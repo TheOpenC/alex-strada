@@ -230,9 +230,7 @@ hr {
     vertical-align: bottom;
     width: 100%;
     padding: 0;
-    margin: 0;
-
-    
+    margin: 0;  
 }
 
 a {
@@ -558,58 +556,30 @@ small {
 Sections
 */
 /* ============================================
-   FRONT PAGE — full bleed slideshow
+   NEWS 
    ============================================ */
 
-/* body.homepage .page_container,
-body.homepage .container_width,
-body.homepage .content,
-body.homepage .content_padding,
-body.homepage bodycopy {
-  width: 100% !important;
-  max-width: 100% !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  min-height: unset !important;
+.news h3{
+  padding-bottom: var(--space-xs);
+}
+.news h4{
+  padding-bottom: 0;
+  padding-top:0;
+  line-height: var(--leading-normal);
 }
 
-body.homepage [image-gallery="slideshow"],
-body.homepage .slick-slider,
-body.homepage .slick-list,
-body.homepage .slick-track {
-  width: 100vw !important;
-  height: 100vh !important;
-  max-width: none !important;
-  margin: 0 !important;
-  padding: 0 !important;
+.news div{
+  padding-bottom: var(--space-xl);
+}
+.category{
+  font-style: italic;
+  font-weight: var(--weight-light);
+  padding-bottom: var(--space-xs);
+}
+.title{
+  font-weight: var(--weight-bold);
 }
 
-body.homepage [image-gallery="slideshow"] img,
-body.homepage .gallery_card_image img {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  object-position: center !important;
-}
-body.homepage .page_content br,
-body.homepage .page_content > div:empty {
-  display: none !important;
-  line-height: 0 !important;
-  height: 0 !important;
-} */
-
-/* Full bleed Code */
-/* [image-gallery="slideshow"] {
-    width: 100vw;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    left: 50%;
-    transform: translateX(-50%);
-    position: relative;
-    background: var(--slideshow-bg);
-} */
 
 /* ============================================
    FRONT PAGE — contained slideshow
