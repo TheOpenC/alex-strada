@@ -78,7 +78,7 @@
   --project-top-offset: 10.5rem;
     
   /* Site Menu */
-  --menu-bg:            rgba(255, 255, 255, .93);
+  --menu-bg:            rgba(255, 255, 255, 1);
   --menu-text:          black;
   --menu-text-muted:    rgba(210, 210, 210, 1);
   --menu-font-size:             1rem;
@@ -347,12 +347,13 @@ h1 {
 	font-style: normal;
 	font-weight: var(--weight-medium);
 	left: 0; /*3rem;*/
-    top: 1rem;
+  top: 1rem;
 	margin: 0;
 	font-size: var(--text-h1);
 	line-height: var(--leading-tight);
-    letter-spacing: .01em;
-    white-space: nowrap;
+  letter-spacing: .01em;
+  white-space: nowrap;
+  z-index: 5;
 }
 
  h1 a {
@@ -370,7 +371,7 @@ h1 {
     left: auto !important;
     height: calc(var(--text-h1) * var(--leading-tight) + var(--header-top) * 2) !important;
     width: 100% !important;
-    z-index: 10 !important;
+    z-index: 5 !important;
     background: transparent !important;
     pointer-events: auto;
     padding: var(--header-top) var(--site-gutter) var(--space-md);
@@ -566,6 +567,7 @@ Sections
   padding-bottom: 0;
   padding-top:0;
   line-height: var(--leading-normal);
+  letter-spacing: var(--tracking-body);
 }
 
 .news div{
@@ -579,7 +581,17 @@ Sections
 .title{
   font-weight: var(--weight-bold);
 }
+.event,
+.program,
+.exhibition,
+.commissionm,
+.screening{
+  font-style: italic;
+}
 
+.news-item h4 {
+  white-space: pre-line;
+}
 
 /* ============================================
    FRONT PAGE — contained slideshow
@@ -686,7 +698,7 @@ body.mobile #site_menu_button {
   right: var(--menu-right-hamburger-offset) !important;
   padding: 0 !important;
   margin: 0 !important;
-  z-index: 100 !important;
+  z-index: 1001 !important;
   background: transparent !important;
   font-size: 0 !important;
   line-height: 0 !important;
@@ -738,7 +750,7 @@ body.header-over-image [data-css-preset] #site_menu_button::before {
 
 
 /* ============================================
-   SITE MENU — full-width overlay
+   SITE MENU — 
    ============================================ */
 
 #site_menu {
@@ -766,7 +778,7 @@ body.header-over-image [data-css-preset] #site_menu_button::before {
 	justify-content: flex-start;
     padding: var(--space-md) var(--space-lg);
     box-sizing: border-box;
-    z-index: 99;
+    z-index: 1000 !important;
 
     border: 1px solid var(--color-text-faint);
 }
@@ -782,10 +794,17 @@ body.mobile #site_menu {
     max-width: 100vw !important;
     height: 100vh !important;
     max-height: 100vh !important;
-    overflow-y: scroll;
+    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    padding: var(--space-xl);
+    padding: 5rem var(--site-gutter) 4rem !important;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
 }
+
 /* Projects, About, Nes, Press */
 #site_menu > .page-link > a,
 #site_menu > .set-link > a{
@@ -797,17 +816,29 @@ body.mobile #site_menu {
 #site_menu > .set-link > span {
 	color: var(--menu-text);
 	font-weight: var(--weight-medium);
-    display: block;
+  font-size: var(--text-h4);
+  display: block;
+}
+
+/* On mobile, set-links need to be inline-block so +/- sits next to text */
+body.mobile #site_menu .set-link > a,
+body.mobile #site_menu .set-link > span {
+  display: inline-block !important;
 }
 
 /*Current, Past - sub-label, slightly smaller */
 #site_menu > .set-link > .indent > .set-link > a,
 #site_menu > .set-link > .indent > .set-link > span {
-	font-size: var(--text-lead); /* 1.25rem */
+	font-size: var(--text-base); /* .875rem */
     color: var(--color-text-faint);
     margin-top: var(--space-xl);
     display: block;	
-    font-weight: var(--weight-medium);
+    font-weight: var(--weight-regular);
+}
+
+body.mobile #site_menu > .set-link > .indent > .set-link > a, 
+body.mobile #site_menu > .set-link > .indent > .set-link > span{
+  margin-top: var(--space-sm);
 }
 
 /* Space above 'truths' and 'Artist Contract' */
@@ -878,17 +909,26 @@ body.mobile #site_menu {
     
     
 }
-
-#site_menu a:hover,
-#site_menu a:hover::after{
-	content:"●";
-    transition: color 0.15s ease;
+/* Desktop hover: dot appears after the link with spacing */
+#site_menu a:hover::after {
+  content: "●";
+  padding-left: 1.5rem;
+  transition: color 0.15s ease;
 }
 
-#site_menu a:hover::after{
-   padding-left: 1.5rem;
-	
-    
+/* Mobile hover: dot positioned absolute so it doesn't shift layout */
+body.mobile #site_menu a {
+  position: relative;
+}
+
+body.mobile #site_menu a:hover::after {
+  content: "●";
+  position: absolute;
+  left: calc(100% + 0.4em);
+  top: 50%;
+  transform: translateY(-50%);
+  padding-left: 0;
+  font-size: 0.7em;
 }
 
 
@@ -920,43 +960,102 @@ body.mobile #site_menu .close {
 }
 
 
-/* =========================
-   Map and Newspaper accordians
-   ========================= */
-.newspaper{
-	padding-bottom: var(--space-xl)
+
+
+/** ==================================
+ * Mobile Breakpoints
+ ====================================*/
+
+ /* Larger text on mobile */
+body.mobile #site_menu > .page-link > a,
+body.mobile #site_menu > .set-link > a, 
+body.mobile #site_menu > .set-link > span{
+  font-size: var(--text-h3);
+}
+
+body.mobile #site_menu > .set-link > .indent > .set-link > a,
+body.mobile #site_menu > .set-link > .indent > .set-link > span {
+  font-size: var(--text-h4);
+}
+
+body.mobile #site_menu .indent .indent > .page-link > a,
+body.mobile #site_menu .indent .indent > .page-link > span,
+body.mobile #site_menu .indent .indent > .set-link > a,
+body.mobile #site_menu .indent .indent > .set-link > span {
+  font-size: var(--text-lead);
+}
+
+body.mobile #site_menu .indent .indent .indent > .page-link > a {
+  font-size: var(--text-base);
+}
+
+/* Spacing between items on mobile */
+body.mobile #site_menu > .page-link > a,
+body.mobile #site_menu > .page-link > span {
+  margin-top: var(--space-lg);
+}
+
+body.mobile #site_menu > .set-link + .page-link > a {
+  margin-top: var(--space-xl);
+}
+
+/* X button matches hamburger size on mobile */
+body.mobile #site_menu .close {
+  position: absolute;
+  top: var(--menu-top-hamburger-offset);
+  right: var(--menu-right-hamburger-offset);
+  font-size: var(--menu-hamburger);
+  line-height: 1;
 }
 
 
-.accordion-item { margin: 0; }
-.accordion-toggle {
-  cursor: pointer;
-  display: block;
-  user-select: none;
-}
-.accordion-toggle .arrow {
-  display: inline-block;
-  transition: transform 0.3s ease;
-  margin-right: 4px;
-}
-.accordion-toggle.open .arrow {
-  transform: rotate(90deg);
-}
-.accordion-content {
-  overflow: hidden;
+/* Mobile menu page organization */
+/* ============================================
+   MOBILE MENU ACCORDIONS
+   ============================================ */
+#site_menu .set-link > span { line-height: 1.4; }
+body.mobile #site_menu .set-link > span { display: inline-block; padding: 0.25em 0; }
+
+/* Hide all nested levels by default on mobile */
+body.mobile #site_menu .indent {
   max-height: 0;
-  transition: max-height 0.5s ease;
-}
-.accordion-content.open {
-  max-height: 2000px;
-}
-.accordion-content-inner {
-  padding: 10px 0 20px 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
 }
 
-/**
- * Breakpoints
- */
+/* When toggled open, reveal children */
+body.mobile #site_menu .accordion-open > .indent {
+  max-height: 3000px;
+}
+
+/* Make set-link labels clickable on mobile (overrides pointer-events: none) */
+body.mobile #site_menu .set-link > a,
+body.mobile #site_menu .set-link > span {
+  pointer-events: auto !important;
+  cursor: pointer;
+  position: relative;
+  display: inline-block !important;
+}
+
+/* Arrow indicator for expandable items */
+body.mobile #site_menu .set-link > a::after,
+body.mobile #site_menu .set-link > span::after {
+  content: '＋';
+  position: absolute;
+  /* margin-left: 0.5em; */
+  left: calc(100% + .4em);
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.7em;
+  /* vertical-align: middle; */
+  transition: transform 0.3s ease;
+}
+
+body.mobile #site_menu .set-link.accordion-open > a::after,
+body.mobile #site_menu .set-link.accordion-open > span::after {
+  content: '－';
+}
+
 
 
 [data-css-preset] .page {
@@ -992,6 +1091,40 @@ body.mobile #site_menu .close {
 	padding-bottom: 2.2rem /*!main_margin*/;
 	padding-left: var(--site-gutter)!important; /*!main_margin*/
 	padding-right: var(--site-gutter) !important; /*!main_margin*/
+}
+
+
+/* =========================
+   Map and Newspaper accordians
+   ========================= */
+.newspaper{
+	padding-bottom: var(--space-xl)
+}
+
+.accordion-item { margin: 0; }
+.accordion-toggle {
+  cursor: pointer;
+  display: block;
+  user-select: none;
+}
+.accordion-toggle .arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+  margin-right: 4px;
+}
+.accordion-toggle.open .arrow {
+  transform: rotate(90deg);
+}
+.accordion-content {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.5s ease;
+}
+.accordion-content.open {
+  max-height: 2000px;
+}
+.accordion-content-inner {
+  padding: 10px 0 20px 0;
 }
 
 
@@ -1063,16 +1196,6 @@ div[thumbnails] {
 .thumbnails .has_title .tags {
 	margin-top: -1.8rem;
 }
-
-
-/*
- * Shop Button
- */
-
-
-/*
- * Shop Product Widget
- */
 
 
 
