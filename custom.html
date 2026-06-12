@@ -31,7 +31,7 @@
 
 <!-- Project title in header -->
 <!-- Project title in header -->
-<script>
+<!-- <script>
 (function() {
   let lastTitle = '';
   function updateProjectTitle() {
@@ -60,7 +60,7 @@
   setInterval(updateProjectTitle, 50);
   setTimeout(updateProjectTitle, 500);
 })();
-</script>
+</script> -->
 
 
 <!-- Remove auto link tags for menu items -->
@@ -76,10 +76,9 @@
     if (initialized) return;
 
     // Step 1: Replace set-link <a> tags with <span> to prevent navigation
-    var labelSelectors = [
+ var labelSelectors = [
       '#site_menu > .set-link > a',
-      '#site_menu > .set-link > .indent > .set-link > a',
-      '#site_menu > .set-link > .indent > .set-link > .indent > .set-link > a'
+      '#site_menu > .set-link > .indent > .set-link > a'
     ];
     var replaced = false;
     labelSelectors.forEach(function(selector) {

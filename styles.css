@@ -10,6 +10,7 @@
 
   /* Site Settings */
   --site-gutter: 2rem;
+  --mobile-site-gutter: 1rem;
   --content-max-width: 1350px;
     
   /* Fonts */
@@ -25,7 +26,7 @@
   --text-sm:      0.875rem;   /* ~16px — captions, tags, metadata */
   --text-xs:      0.75rem;    /* ~13.5px — footnotes, fine print */
   --text-lead:    1.25rem;    /* ~22px — intro paragraphs */
-  --text-h4:      1.5rem;     /* ~27px */
+  --text-h4:      1.4rem;     /* ~27px */
   --text-h3:      2rem;       /* 36px */
   --text-h2:      2.5rem;     /* 45px */
   --text-h1:      2rem;     /* 63px */
@@ -103,7 +104,7 @@
   --space-img:  1rem;
   --space-cap:  3rem;
   --space-p:    .25rem;
-  --space-ul-qm: .5rem;
+  --space-li:   1rem;
   --space-h4: 	 2rem;
   --space-summary: 4rem;
 
@@ -199,14 +200,24 @@ figcaption {
 .p-lead {
 	font-size: var(--text-lead);
     padding-top: var(--space-sm);
-    padding-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
     display: block;
+    font-weight: var(--weight-bold);
 }
 
 ul,
 ol {
 	margin: 0;
-	padding: 0 0 var(--space-sm) 2.5em;
+	padding-left: var(--space-xl);
+  padding-bottom: var(--space-xl) !important;
+}
+
+li{
+	padding-top: var(--space-li);
+}
+
+.workshops-qm{
+  padding-bottom: var(--space-md);
 }
 
 blockquote {
@@ -244,9 +255,6 @@ a {
 }
 
 
-.workshops-qm p{
-	padding-top: var(--space-ul-qm);
-}
 
 /**
  * Loading Animation
@@ -435,7 +443,7 @@ body.header-over-image #site_menu_button::before {
 Title in header css
 =================== */
 /* Desktop — centered between name and hamburger */
-#header-project-title {
+/* #header-project-title {
   position: absolute;
   top: var(--header-top);
   left: 50%;
@@ -461,10 +469,10 @@ body.header-over-image #header-project-title {
 
 body.homepage #header-project-title {
   display: none;
-}
+} */
 
 /* Mobile — stacked below Alex Strada */
-body.mobile #header-project-title {
+/* body.mobile #header-project-title {
   top: calc(var(--header-top) + var(--text-h1) + 0.25rem);
   left: var(--site-gutter);
   transform: none;
@@ -473,7 +481,7 @@ body.mobile #header-project-title {
   white-space: normal;
   overflow: visible;
   text-overflow: clip;
-}
+} */
 /*===========================
 Typography 
 =============================*/
@@ -723,7 +731,7 @@ body.header-over-image [data-css-preset] #site_menu_button::before {
   color: white;
 }
 
-#site_menu .indent .indent .indent .page-link > a::before {
+#site_menu .indent .indent .page-link > a::before {
   content: '└';
   margin-right: 0.4em;
   opacity: 0.5;
@@ -797,7 +805,7 @@ body.mobile #site_menu {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     padding: 5rem var(--site-gutter) 4rem !important;
-
+    border: none !important;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -827,23 +835,23 @@ body.mobile #site_menu .set-link > span {
 }
 
 /*Current, Past - sub-label, slightly smaller */
-#site_menu > .set-link > .indent > .set-link > a,
+/* #site_menu > .set-link > .indent > .set-link > a,
 #site_menu > .set-link > .indent > .set-link > span {
-	font-size: var(--text-base); /* .875rem */
-    color: var(--color-text-faint);
+	font-size: var(--text-base); .875rem */
+    /* color: var(--color-text-faint);
     margin-top: var(--space-xl);
     display: block;	
     font-weight: var(--weight-regular);
-}
+} */
 
-body.mobile #site_menu > .set-link > .indent > .set-link > a, 
+/* body.mobile #site_menu > .set-link > .indent > .set-link > a, 
 body.mobile #site_menu > .set-link > .indent > .set-link > span{
   margin-top: var(--space-sm);
-}
+} */
 
 /* Space above 'truths' and 'Artist Contract' */
-#site_menu .indent .indent > .page-link > a,
-#site_menu .indent .indent > .page-link > span {
+#site_menu .indent > .page-link > a,
+#site_menu .indent > .page-link > span {
   margin-top: var(--space-xs);
   display: block;
     
@@ -853,10 +861,10 @@ body.mobile #site_menu > .set-link > .indent > .set-link > span{
 /* Proposal for a 28th Amendment, Save the Presidents —
    Collective Mobilities, truths, Artist Contract 
    two indents deep, set-link type, already bold, add breathing room */
-#site_menu > .set-link > .indent > .set-link > .indent > .set-link > a,
-#site_menu > .set-link > .indent > .set-link > .indent > .set-link > span,
-#site_menu .indent .indent > .page-link > a,
-#site_menu .indent .indent > .page-link > span {
+#site_menu > .set-link > .indent > .set-link > a,
+#site_menu > .set-link > .indent > .set-link > span,
+#site_menu .indent > .page-link > a,
+#site_menu .indent > .page-link > span{
   font-weight: var(--weight-medium);
   font-size: var(--text-base); /* 1rem */
   margin-top: var(--space-md);
@@ -865,8 +873,8 @@ body.mobile #site_menu > .set-link > .indent > .set-link > span{
 }
 
 /*QM, YB, AC, PRH, NP, MM, FW */
-#site_menu .indent .indent .indent > .page-link > a,
-#site_menu .indent .indent .indent > .page-link > span {
+#site_menu .indent .indent > .page-link > a,
+#site_menu .indent .indent > .page-link > span {
   font-weight: var(--weight-light);
   margin-top: var(--space-xs);
   color: var(--menu-text);
@@ -890,8 +898,7 @@ body.mobile #site_menu > .set-link > .indent > .set-link > span{
 
 /* Projects, Current, Past, Proposal, Save the Presidents — labels not links */
 #site_menu > .set-link > a,
-#site_menu > .set-link > .indent > .set-link > a,
-#site_menu > .set-link > .indent > .set-link > .indent > .set-link > a {
+#site_menu > .set-link > .indent > .set-link > a {
   pointer-events: none;
   cursor: default;
   text-decoration: none;
@@ -973,7 +980,21 @@ body.mobile #site_menu > .set-link > span{
   font-size: var(--text-h3);
 }
 
-body.mobile #site_menu > .set-link > .indent > .set-link > a,
+/* MOBILE: items 1 indent deep — Public Address, Collective, Proposal, truths, Save, Artist Contract */
+body.mobile #site_menu .indent > .page-link > a,
+body.mobile #site_menu .indent > .page-link > span,
+body.mobile #site_menu .indent > .set-link > a,
+body.mobile #site_menu .indent > .set-link > span {
+  font-size: var(--text-lead);
+}
+
+/* MOBILE: items 2 indents deep — Queens Museum etc., Project Overview etc. */
+body.mobile #site_menu .indent .indent > .page-link > a,
+body.mobile #site_menu .indent .indent > .page-link > span {
+  font-size: var(--text-base);
+}
+
+/* body.mobile #site_menu > .set-link > .indent > .set-link > a,
 body.mobile #site_menu > .set-link > .indent > .set-link > span {
   font-size: var(--text-h4);
 }
@@ -987,7 +1008,7 @@ body.mobile #site_menu .indent .indent > .set-link > span {
 
 body.mobile #site_menu .indent .indent .indent > .page-link > a {
   font-size: var(--text-base);
-}
+} */
 
 /* Spacing between items on mobile */
 body.mobile #site_menu > .page-link > a,
@@ -1006,6 +1027,17 @@ body.mobile #site_menu .close {
   right: var(--menu-right-hamburger-offset);
   font-size: var(--menu-hamburger);
   line-height: 1;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --site-gutter: 1rem;
+    --text-base: 1rem; /* 18px */
+    --menu-top-hamburger-offset: 1rem;
+    --menu-right-hamburger-offset:  .5rem;
+    --text-h3: 1.6rem;  
+    
+  }
 }
 
 
