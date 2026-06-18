@@ -566,20 +566,23 @@ small {
 Sections
 */
 /* ============================================
-   NEWS 
+   NEWS + Press
    ============================================ */
 
-.news h3{
+.news h3,
+.press h3{
   padding-bottom: var(--space-xs);
 }
-.news h4{
+.news h4,
+.press h3{
   padding-bottom: 0;
   padding-top:0;
   line-height: var(--leading-normal);
   letter-spacing: var(--tracking-body);
 }
 
-.news div{
+.news div,
+.press div{
   padding-bottom: var(--space-xl);
 }
 .category{
@@ -590,17 +593,29 @@ Sections
 .title{
   font-weight: var(--weight-bold);
 }
+.press-item .title{
+  font-style: italic;
+}
+
 .event,
 .program,
 .exhibition,
 .commissionm,
-.screening{
+.screening,
+.press-title{
   font-style: italic;
 }
 
-.news-item h4 {
+.news-item h4,
+.press-item h4 {
   white-space: pre-line;
 }
+
+h4.page-title{
+  padding-bottom: var(--space-xl);
+}
+
+
 
 /* ============================================
    FRONT PAGE — contained slideshow
@@ -995,6 +1010,7 @@ body.mobile #site_menu .indent .indent > .page-link > span {
   font-size: var(--text-base);
 }
 
+
 /* body.mobile #site_menu > .set-link > .indent > .set-link > a,
 body.mobile #site_menu > .set-link > .indent > .set-link > span {
   font-size: var(--text-h4);
@@ -1070,24 +1086,49 @@ body.mobile #site_menu .set-link > span {
   display: inline-block !important;
 }
 
-/* Arrow indicator for expandable items */
+/* Invisible counterweight on the left, balances the + on the right */
+body.mobile #site_menu .set-link > a::before,
+body.mobile #site_menu .set-link > span::before {
+  content: '＋';
+  font-size: 0.7em;
+  margin-right: 0.4em;
+  visibility: hidden;
+  vertical-align: middle;
+}
+
+/* Visible +/− on the right */
 body.mobile #site_menu .set-link > a::after,
 body.mobile #site_menu .set-link > span::after {
   content: '＋';
-  position: absolute;
-  /* margin-left: 0.5em; */
-  left: calc(100% + .4em);
-  top: 50%;
-  transform: translateY(-50%);
   font-size: 0.7em;
-  /* vertical-align: middle; */
-  transition: transform 0.3s ease;
+  margin-left: 0.4em;
+  vertical-align: middle;
 }
 
 body.mobile #site_menu .set-link.accordion-open > a::after,
 body.mobile #site_menu .set-link.accordion-open > span::after {
   content: '－';
 }
+
+
+/* Arrow indicator for expandable items OLD*/
+/* body.mobile #site_menu .set-link > a::after,
+body.mobile #site_menu .set-link > span::after {
+  content: '＋';
+  position: absolute;
+
+  left: calc(100% + .4em);
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.7em;
+  
+  transition: transform 0.3s ease;
+}
+
+body.mobile #site_menu .set-link.accordion-open > a::after,
+body.mobile #site_menu .set-link.accordion-open > span::after {
+  content: '－';
+} */
 
 
 
