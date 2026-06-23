@@ -1060,7 +1060,7 @@ body.mobile #site_menu .close {
 /* Mobile menu page organization */
 /* ============================================
    MOBILE MENU ACCORDIONS
-   ============================================ */
+   ============================================= */
 #site_menu .set-link > span { line-height: 1.4; }
 body.mobile #site_menu .set-link > span { display: inline-block; padding: 0.25em 0; }
 
