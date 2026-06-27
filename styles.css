@@ -825,7 +825,7 @@ body.mobile #site_menu {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    text-align: center;
+    text-align: center;;
 }
 
 /* Projects, About, Nes, Press */
