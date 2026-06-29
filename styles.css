@@ -90,9 +90,9 @@
   --menu-top-hamburger-offset: 1rem;
   --menu-right-hamburger-offset:  1.5rem;
   --menu-hamburger:             3rem; /* hamburger size */
-  --menu-close-size:            4rem;
-  --menu-close-right:           1.5rem;
-  --menu-close-top:             1.5rem;
+  --menu-close-size:            3.5rem;
+  --menu-close-right:           .0125rem;
+  --menu-close-top:             .5rem;
   
     
   /* Spacing */
@@ -1050,19 +1050,29 @@ body.mobile #site_menu > .set-link + .page-link > a {
 }
 
 /* X button matches hamburger size on mobile */
-body.mobile #site_menu .close {
+/* body.mobile #site_menu .close {
   position: absolute;
   top: var(--menu-top-hamburger-offset);
   right: var(--menu-right-hamburger-offset);
   font-size: var(--menu-hamburger);
   line-height: 1;
+} */
+
+body.mobile #site_menu .close {
+  position: absolute !important;
+  top: var(--menu-close-top) !important;
+  right: var(--menu-right-close) !important;
+  font-size: var(--menu-close-size) !important;
+  line-height: 1 !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 @media (max-width: 768px) {
   :root {
     --site-gutter: 1rem;
     --text-base: 1rem; /* 18px */
-    /* --menu-top-hamburger-offset: 1rem; */
+    --menu-top-hamburger-offset: .58rem; 
     --menu-right-hamburger-offset:  .5rem;
     --text-h3: 1.6rem;  
     
