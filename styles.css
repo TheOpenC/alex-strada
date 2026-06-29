@@ -815,8 +815,8 @@ body.mobile #site_menu {
     right: 0;
     width: 100vw !important;
     max-width: 100vw !important;
-    height: 100dvh !important;
-    max-height: 100dvh !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     padding: 5rem var(--site-gutter) 4rem !important;
@@ -825,8 +825,21 @@ body.mobile #site_menu {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    text-align: center;;
+    text-align: center;
+
+    /* bottom whitespace on mobile menu */
+    padding-bottom: calc(5rem + env(safe-area-inset-bottom)) !important;
 }
+
+/* Force scrollability: spacer at the end ensures content always exceeds viewport */
+body.mobile #site_menu::after {
+  content: '';
+  display: block;
+  flex-shrink: 0;
+  min-height: 6rem;
+}
+
+
 
 /* Projects, About, Nes, Press */
 #site_menu > .page-link > a,
@@ -1049,7 +1062,7 @@ body.mobile #site_menu .close {
   :root {
     --site-gutter: 1rem;
     --text-base: 1rem; /* 18px */
-    --menu-top-hamburger-offset: 1rem;
+    /* --menu-top-hamburger-offset: 1rem; */
     --menu-right-hamburger-offset:  .5rem;
     --text-h3: 1.6rem;  
     
