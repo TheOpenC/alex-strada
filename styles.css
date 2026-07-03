@@ -91,8 +91,8 @@
   --menu-right-hamburger-offset:  1.5rem;
   --menu-hamburger:             3rem; /* hamburger size */
   --menu-close-size:            3.5rem;
-  --menu-close-right:           .0125rem;
-  --menu-close-top:             .5rem;
+  --menu-close-right:           1.75rem;
+  --menu-close-top:             1.75rem;
   
     
   /* Spacing */
@@ -806,9 +806,6 @@ body.header-over-image [data-css-preset] #site_menu_button::before {
     border: 1px solid var(--color-text-faint);
 }
 
-.site-menu a{
-    color: var(--menu-text);
-}
 
 body.mobile #site_menu {
 	top: 0;
@@ -830,6 +827,41 @@ body.mobile #site_menu {
     /* bottom whitespace on mobile menu */
     padding-bottom: calc(5rem + env(safe-area-inset-bottom)) !important;
 }
+
+#site_menu .close {
+	display: block;
+	color: var(--menu-text);
+	line-height: 1rem;
+	font-size: var(--menu-close-size);
+    cursor: pointer;
+    align-self: flex-end;
+    margin-bottom: var(--space-sm);
+    right: var(--menu-close-right); 
+    top: var(--menu-close-top);
+}
+
+body.mobile #site_menu .close {
+	display: block;
+	font-size: var(--menu-close-size);
+	line-height: 1em;
+  top: var(--menu-close-top);
+  right: var(--menu-close-right);
+}
+
+#site_menu .break {
+	height: 28px;
+}
+
+#site_menu .indent {
+	/* margin-left: 28px; */
+    margin-left: 0;
+}
+
+.site-menu a{
+    color: var(--menu-text);
+}
+
+
 
 /* Force scrollability: spacer at the end ensures content always exceeds viewport */
 body.mobile #site_menu::after {
@@ -967,32 +999,6 @@ body.mobile #site_menu a:hover::after {
 }
 
 
-#site_menu .close {
-	display: block;
-	color: var(--menu-text);
-	line-height: 1rem;
-	font-size: var(--menu-close-size);
-    cursor: pointer;
-    align-self: flex-end;
-    margin-bottom: var(--space-sm);
-    right: var(--menu-close-right); 
-    top: var(--menu-close-top);
-}
-
-body.mobile #site_menu .close {
-	display: block;
-	font-size: 50px;
-	line-height: 1em;
-}
-
-#site_menu .break {
-	height: 28px;
-}
-
-#site_menu .indent {
-	/* margin-left: 28px; */
-    margin-left: 0;
-}
 
 
 
@@ -1074,6 +1080,8 @@ body.mobile #site_menu .close {
     --text-base: 1rem; /* 18px */
     --menu-top-hamburger-offset: .58rem; 
     --menu-right-hamburger-offset:  .5rem;
+    --menu-close-right: 1rem;
+    --menu-close-top: 1rem;
     --text-h3: 1.6rem;  
     
   }
