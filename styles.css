@@ -15,7 +15,7 @@
     
   /* Fonts */
   --font-primary: "Archivo", system-ui, sans-serif;
-  --font-secondary: 'Work Sans', sans-serif;
+  --font-secondary: "Archivo",'Work Sans', sans-serif;
   /* --font-primary: "DM Sans", system-ui, sans-serif;  
     font-family: "General Sans";
   	font-family: 'Supreme', sans-serif;
@@ -25,11 +25,14 @@
   --text-base:    1.111rem;       /* 20px */
   --text-sm:      0.875rem;   /* ~16px — captions, tags, metadata */
   --text-xs:      0.75rem;    /* ~13.5px — footnotes, fine print */
-  --text-lead:    1.25rem;    /* ~22px — intro paragraphs */
+  --text-lead:    1.25rem;/* ~22px — intro paragraphs */
   --text-h4:      1.4rem;     /* ~27px */
   --text-h3:      2rem;       /* 36px */
   --text-h2:      2.5rem;     /* 45px */
   --text-h1:      2rem;     /* 63px */
+  --text-sub-menu: 1.2rem;
+  --text-project-menu: 1.35rem;
+  --text-menu-headings: 1.75rem;
 
   /* Type scale — mobile */
   --text-h1-mobile: 2.25rem;
@@ -91,8 +94,10 @@
   --menu-right-hamburger-offset:  1.5rem;
   --menu-hamburger:             3rem; /* hamburger size */
   --menu-close-size:            3.5rem;
-  --menu-close-right:           1.75rem;
+  --menu-close-right:           1.5rem;
   --menu-close-top:             1.75rem;
+  --menu-mobile-close-top:		1rem;
+  --menu-mobile-close-right:	1rem;
   
     
   /* Spacing */
@@ -103,7 +108,7 @@
   --space-xl:   3rem;
 
   --space-img:  1rem;
-  --space-cap:  3rem;
+  --space-cap:  2rem;
   --space-p:    .25rem;
   --space-li:   1rem;
   --space-h4: 	 2rem;
@@ -111,6 +116,30 @@
 
 /*  */
 }
+/*=========================
+Mobile Breakpoints
+==========================*/
+
+@media (max-width: 768px) {
+  :root {
+    --site-gutter: 1rem;
+    --text-base: 1rem; /* 18px */
+    --menu-top-hamburger-offset: 1rem; 
+    --menu-right-hamburger-offset:  .5rem;
+    --menu-close-top: 0.65rem;
+    --menu-close-right: 0.5rem;
+    --text-h3: 1.6rem;  
+      
+    
+  }
+}
+
+.stp  p{
+	letter-spacing: var(--tracking-body);
+    font-family: var(--font-secondary);
+}
+
+
 
 h1, h2, h3, h4, h5, h6,
 .gallery_image_caption,
@@ -290,7 +319,7 @@ small a,
 
 bodycopy,
 p {
-    font-family:var(--font-secondary);
+    font-family:var(--font-primary);
 	font-size: var(--text-base);
 	font-weight: var(--weight-regular);
 	color: var(--color-text);
@@ -309,10 +338,15 @@ bodycopy a {
 	text-decoration: underline;
 }
 
-bodycopy a:hover {
-	color: var(--color-hover);
+bodycopy a:hover,
+.news-item:hover .title {
+	/*color: var(--color-hover);*/
+    background-color: var(--color-active);
     transition: color 0.15s ease;
     cursor: pointer;
+}
+bodycopy .news-item a:hover{
+  background-color: white !important;
 }
 
 bodycopy a.image-link,
@@ -327,11 +361,11 @@ bodycopy a.icon-link:hover {
 bodycopy p,
 bodycopy div,
 bodycopy {
-  font-family: var(--font-secondary) !important;
+  font-family: var(--font-primary) !important;
   font-size: var(--text-base) !important;
   font-weight: var(--weight-regular) !important;
   line-height: var(--leading-loose) !important;
-  letter-spacing: var(--tracking-normal) !important;
+  letter-spacing: var(--tracking-wide) !important;
   color: var(--color-text) !important;
   white-space: normal !important;
   word-wrap: break-word !important;
@@ -534,7 +568,7 @@ h4{
 h5{
 	font-family: var(--primary);
     font-style: normal;
-    font-weight: var(--weight-semibold);
+    font-weight: var(--weight-regular);
     padding:0;
     margin: 0;
     font-size: var(--text-h5);
@@ -610,8 +644,9 @@ Sections
   white-space: pre-line;
 }
 
-h4.page-title{
+h3.page-title{
   padding-bottom: var(--space-xl);
+   
 }
 
 
@@ -620,7 +655,7 @@ h4.page-title{
    FRONT PAGE — contained slideshow
    ============================================ */
 
-body.homepage .page_container,
+/* body.homepage .page_container,
 body.homepage .container_width,
 body.homepage .content,
 body.homepage .content_padding,
@@ -630,27 +665,28 @@ body.homepage bodycopy {
   margin: 0 !important;
   padding: 0 !important;
   min-height: unset !important;
-}
+} */
 
-body.homepage [image-gallery="slideshow"],
+
 body.homepage .slick-slider,
 body.homepage .slick-list,
 body.homepage .slick-track {
-  width: calc(100vw - var(--site-gutter) * 2) !important;
+  width: 100% !important;
   height: auto !important;
-  
-  margin-top: var(--slideshow-top-offset) !important;
-  max-width: none !important;
+  margin: 0 !important;
+  max-width: 100% !important;
   padding: 0 !important;
 }
 
-body.homepage [image-gallery="slideshow"] img,
-body.homepage .gallery_card_image img {
-  width: 100% !important;
-  max-width: var(--content-max-width) !important;
-  height: auto !important;
-  object-fit: contain !important;
+/* Front page — single static image, sized like a project */
+body.homepage bodycopy img {
+  display: block;
+  width: 100%;
+  height: auto;
+  padding-top: var(--space-xs) !important;
 }
+
+
 
 body.homepage .page_content br,
 body.homepage .page_content > div:empty {
@@ -670,10 +706,18 @@ body.homepage .page_content > div:empty {
   position: relative;
 }
 
+	/* Front page: restore the left/right gutter so the image
+   lines up with the header and other pages (undoes the
+   padding:0 from the [local-style="38394822"] local style) */
+body.homepage .content_padding {
+  padding-left: var(--site-gutter) !important;
+  padding-right: var(--site-gutter) !important;
+}
+
 body.homepage [image-gallery="slideshow"] {
-  margin-left: var(--site-gutter) !important;
-  margin-right: var(--site-gutter) !important;
-  margin-top: var(--slideshow-top-offset) !important;
+  width: calc(100% - var(--site-gutter) * 2) !important;
+  max-width: var(--content-max-width) !important;
+  margin: 5rem auto 0 !important;
 }
 
 /* Fix Cargo's font-size injection */
@@ -705,7 +749,7 @@ html {
 
 
 /**==================================
- * Site Menu Button
+ * Site Menu Hamburger
 ===================================== */
 
 .main_container {
@@ -777,7 +821,7 @@ body.header-over-image [data-css-preset] #site_menu_button::before {
    ============================================ */
 
 #site_menu {
-	font-family:var(--font-secondary);
+	font-family:var(--font-primary);
 	background: var(--menu-bg);
 	font-size: var(--menu-font-size);
 	font-style: normal;
@@ -792,14 +836,16 @@ body.header-over-image [data-css-preset] #site_menu_button::before {
     width: var(--menu-dropdown-width);
 	max-width: var(--menu-dropdown-width);
 	min-width: unset;
-    height: 100vh;
+    height: auto !important;
+    max-height: 100vh;
+    bottom: auto !important;
     overflow-y: auto;
     
 	/*layout */
 	display: flex;
     flex-direction: column;
 	justify-content: flex-start;
-    padding: var(--space-md) var(--space-lg);
+    padding: var(--space-md) var(--space-lg) var(--space-xl);
     box-sizing: border-box;
     z-index: 1000 !important;
 
@@ -844,8 +890,7 @@ body.mobile #site_menu .close {
 	display: block;
 	font-size: var(--menu-close-size);
 	line-height: 1em;
-  top: var(--menu-close-top);
-  right: var(--menu-close-right);
+
 }
 
 #site_menu .break {
@@ -876,7 +921,7 @@ body.mobile #site_menu::after {
 /* Projects, About, Nes, Press */
 #site_menu > .page-link > a,
 #site_menu > .set-link > a{
-	font-size: var(--text-h4); /*1.25rem */
+	font-size: var(--text-menu-headings); /*1.25rem */
     
 }
 /* Projects - top level set */
@@ -884,8 +929,9 @@ body.mobile #site_menu::after {
 #site_menu > .set-link > span {
 	color: var(--menu-text);
 	font-weight: var(--weight-medium);
-  font-size: var(--text-h4);
+  font-size: var(--text-menu-headings);
   display: block;
+    padding-top: 1.75rem;
 }
 
 /* On mobile, set-links need to be inline-block so +/- sits next to text */
@@ -925,8 +971,8 @@ body.mobile #site_menu > .set-link > .indent > .set-link > span{
 #site_menu > .set-link > .indent > .set-link > span,
 #site_menu .indent > .page-link > a,
 #site_menu .indent > .page-link > span{
-  font-weight: var(--weight-medium);
-  font-size: var(--text-base); /* 1rem */
+  font-weight: var(--weight-regular);
+  font-size: var(--text-project-menu); /* 1rem */
   margin-top: var(--space-md);
   display: block; 
   color: var(--menu-text);
@@ -937,8 +983,8 @@ body.mobile #site_menu > .set-link > .indent > .set-link > span{
 #site_menu .indent .indent > .page-link > span {
   font-weight: var(--weight-light);
   margin-top: var(--space-xs);
-  color: var(--menu-text);
   display: block;
+  font-size: var(--text-sub-menu);
     
 }
 /* About, News, Press — top level page-links, bold with breathing room */
@@ -969,7 +1015,7 @@ body.mobile #site_menu > .set-link > .indent > .set-link > span{
 }
 
 #site_menu a.active {
-	background-color: var(--color-link-green) !important;
+	background-color: var(--color-active) !important;
     color: black;
    
         
@@ -1064,28 +1110,9 @@ body.mobile #site_menu > .set-link + .page-link > a {
   line-height: 1;
 } */
 
-body.mobile #site_menu .close {
-  position: absolute !important;
-  top: var(--menu-close-top) !important;
-  right: var(--menu-right-close) !important;
-  font-size: var(--menu-close-size) !important;
-  line-height: 1 !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
 
-@media (max-width: 768px) {
-  :root {
-    --site-gutter: 1rem;
-    --text-base: 1rem; /* 18px */
-    --menu-top-hamburger-offset: .58rem; 
-    --menu-right-hamburger-offset:  .5rem;
-    --menu-close-right: 1rem;
-    --menu-close-top: 1rem;
-    --text-h3: 1.6rem;  
-    
-  }
-}
+
+
 
 
 /* Mobile menu page organization */
@@ -1191,10 +1218,10 @@ body.mobile #site_menu .set-link.accordion-open > span::after {
 
 [data-css-preset] .content_padding {
 	/* padding-top: calc(var(--header-top) + var(--text-h1) + var(--space-lg)) !important; */
-  	padding-top: var(--project-top-offset) !important;;
+  	padding-top: 8rem !important /*!main_margin*/;
 	padding-bottom: 2.2rem /*!main_margin*/;
-	padding-left: var(--site-gutter)!important; /*!main_margin*/
-	padding-right: var(--site-gutter) !important; /*!main_margin*/
+	padding-left: 2.2rem /*!main_margin*/; /*!main_margin*/
+	padding-right: 2.2rem /*!main_margin*/; /*!main_margin*/
 }
 
 
