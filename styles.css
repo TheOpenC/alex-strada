@@ -119,6 +119,21 @@
 /*=========================
 Mobile Breakpoints
 ==========================*/
+/* Height-gated exclusive accordion — small-laptop heights, desktop only */
+@media (max-height: 1200px) {
+  body:not(.mobile) #site_menu .set-link .set-link > .indent {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .28s ease;
+  }
+  body:not(.mobile) #site_menu .set-link .set-link.acc-open > .indent {
+    max-height: 60vh;
+  }
+  body:not(.mobile) #site_menu .set-link .set-link > span { cursor: pointer; }
+  body:not(.mobile) #site_menu .set-link .set-link > span::after { content: " ＋"; }
+  body:not(.mobile) #site_menu .set-link .set-link.acc-open > span::after { content: " －"; }
+}
+
 
 @media (max-width: 768px) {
   :root {
@@ -874,6 +889,20 @@ body.mobile #site_menu {
     padding-bottom: calc(5rem + env(safe-area-inset-bottom)) !important;
 }
 
+/* Fluid menu type — min 18px, scales with viewport height */
+/* #site_menu .set-link > span,
+#site_menu .page-link a {
+  font-size: clamp(18px, 2.2vh, 34px);
+  line-height: 1.2;
+}*/
+
+/* Fluid menu type — scales with viewport height, hierarchy preserved */
+#site_menu {
+  --text-menu-headings: clamp(24px, 2.6vh, 30px); /* Recent Projects, About, News, Press */
+  --text-project-menu:  clamp(20px, 2.1vh, 24px); /* Public Address, groups, truths, etc. */
+  --text-sub-menu:      clamp(18px, 1.7vh, 22px); /* Queens Museum, YBCA, sub-projects */
+}
+
 #site_menu .close {
 	display: block;
 	color: var(--menu-text);
@@ -1496,7 +1525,7 @@ body.mobile .quick-view {
 
 
 /*
- * Audio Player - not used ////
+ * Audio Player
  */
 
 .audio-player {

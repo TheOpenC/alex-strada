@@ -73,97 +73,96 @@
 </script>
 
 
-
-{/* // Remove auto link tags for menu items // */}
-
-// Menu: replace set-link <a> with <span> + mobile accordion //
-
+<!-- Handles exclusive toggle, auto-open of the current page's group and rebinding when the menu re-opens. -->
 
 <script>
-(function() {
-  var initialized = false;
+(function(){
+  var mq = window.matchMedia("(max-height: 1400px)");
+  function groups(){ return Array.prototype.slice.call(
+    document.querySelectorAll("#site_menu .set-link .set-link")); }
+  function closeAll(except){ groups().forEach(function(g){
+    if(g!==except) g.classList.remove("acc-open"); }); }
 
-  function setupMenu() {
-    var menu = document.getElementById('site_menu');
-    if (!menu) return;
-    if (initialized) return;
+  // Delegated click — works no matter when Cargo renders the menu
+  document.addEventListener("click", function(e){
+    if(!mq.matches) return;
+    var span = e.target.closest && e.target.closest("#site_menu .set-link .set-link > span");
+    if(!span) return;
+    var g = span.parentElement;
+    e.preventDefault(); e.stopPropagation();
+    var open = g.classList.contains("acc-open");
+    closeAll(null);
+    if(!open) g.classList.add("acc-open");
+  }, true);
 
-    // Step 1: Replace set-link <a> tags with <span> to prevent navigation
- var labelSelectors = [
+  // Auto-open the current page's group when the menu renders
+  function autoOpen(){
+    if(!mq.matches) return;
+    var gs = groups();
+    if(!gs.length) return;
+    if(gs.some(function(g){ return g.classList.contains("acc-open"); })) return;
+    var active = document.querySelector("#site_menu a.active");
+    var target = active ? active.closest(".set-link .set-link") : null;
+    if(target) target.classList.add("acc-open");
+  }
+  var stable = document.querySelector("#site_menu_wrapper") || document.body;
+  new MutationObserver(autoOpen).observe(stable, { childList: true, subtree: true });
+  autoOpen();
+})();
+</script>
+
+
+
+<!-- Remove auto link tags for menu items -->
+
+<!-- Menu: replace set-link <a> with <span> + mobile accordion -->
+<script>
+(function () {
+  // Replace set-link <a> labels with <span> (no navigation), then
+  // delegate accordion toggling so it survives Cargo's menu rebuilds.
+  function replaceLabels() {
+    var sels = [
       '#site_menu > .set-link > a',
       '#site_menu > .set-link > .indent > .set-link > a'
     ];
-    var replaced = false;
-    labelSelectors.forEach(function(selector) {
-      document.querySelectorAll(selector).forEach(function(a) {
+    sels.forEach(function (sel) {
+      document.querySelectorAll(sel).forEach(function (a) {
         var span = document.createElement('span');
         span.innerHTML = a.innerHTML;
         span.className = a.className;
         a.parentNode.replaceChild(span, a);
-        replaced = true;
       });
     });
-
-    if (!replaced) return; // menu not ready yet
-
-    // Step 2: Attach accordion behavior on mobile
-    if (!document.body.classList.contains('mobile')) {
-      initialized = true;
-      return;
-    }
-
-    var setLinks = menu.querySelectorAll('.set-link');
-    setLinks.forEach(function(setLink) {
-      var toggle = setLink.querySelector(':scope > span');
-      var indent = setLink.querySelector(':scope > .indent');
-      if (!toggle || !indent) return;
-
-      // Remove any existing listener (in case of re-init)
-      var newToggle = toggle.cloneNode(true);
-      toggle.parentNode.replaceChild(newToggle, toggle);
-
-      newToggle.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        // Close siblings at the same level
-        var parent = setLink.parentElement;
-        var siblings = parent.querySelectorAll(':scope > .set-link');
-        siblings.forEach(function(sib) {
-          if (sib !== setLink && sib.classList.contains('accordion-open')) {
-            sib.classList.remove('accordion-open');
-          }
-        });
-
-        setLink.classList.toggle('accordion-open');
-      });
-    });
-
-    initialized = true;
   }
 
-  // Try repeatedly until menu is ready
-  var attempts = 0;
-  var interval = setInterval(function() {
-    setupMenu();
-    attempts++;
-    if (initialized || attempts > 40) clearInterval(interval);
-  }, 100);
+  var mo = new MutationObserver(function () { replaceLabels(); });
+  mo.observe(document.documentElement, { childList: true, subtree: true });
+  replaceLabels();
 
-  // Also re-init if Cargo rebuilds the menu
-  var observer = new MutationObserver(function() {
-    initialized = false;
-    setupMenu();
-  });
+  // ONE delegated handler — bound once, never cloned, timing-independent.
+  document.addEventListener('click', function (e) {
+    if (!document.body.classList.contains('mobile')) return;
+var menu = document.getElementById('site_menu_wrapper') || document.getElementById('site_menu_panel_container');
+if (!menu) return;
 
-  document.addEventListener('DOMContentLoaded', function() {
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true
-    });
-  });
+    var label = e.target.closest('.set-link > span, .set-link > a');
+    if (!label || !menu.contains(label)) return;
+
+    var setLink = label.parentElement;
+    if (!setLink.querySelector(':scope > .indent')) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    setLink.parentElement
+      .querySelectorAll(':scope > .set-link.accordion-open')
+      .forEach(function (sib) { if (sib !== setLink) sib.classList.remove('accordion-open'); });
+
+    setLink.classList.toggle('accordion-open');
+  }, true);
 })();
 </script>
+
 
 <script>
 (function () {
@@ -177,8 +176,8 @@
   // (no global MutationObserver) to avoid any observer feedback loops.
   function expandActiveSection() {
     if (!document.body.classList.contains('mobile')) return false;
-    var menu = document.getElementById('site_menu');
-    if (!menu) return false;
+    var menu = document.getElementById('site_menu_wrapper') || document.getElementById('site_menu_panel_container');
+if (!menu) return false;
     var active = menu.querySelector('a.active');
     if (!active) return false;
     var el = active.parentElement;
