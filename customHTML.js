@@ -211,3 +211,30 @@ if (!menu) return false;
 })();
 </script>
 </span></a>
+
+<!-- Site menu set toggles: +/- attached to title, spacing matched, correct expanded state -->
+<style>
+/* Desktop: collapsed sets show + (kept attached, roomy spacing) */
+body:not(.mobile) #site_menu .set-link > a::after,
+body:not(.mobile) #site_menu .set-link > span::after { content: "\00a0+" !important; white-space: nowrap !important; margin-left: 0.4em !important; }
+/* Desktop: expanded sets show minus */
+body:not(.mobile) #site_menu .set-link.acc-open > a::after,
+body:not(.mobile) #site_menu .set-link.acc-open > span::after { content: "\00a0\2212" !important; }
+/* Desktop: top-level always-open set has no toggle */
+body:not(.mobile) #site_menu#site_menu > .set-link > a::after,
+body:not(.mobile) #site_menu#site_menu > .set-link > span::after { content: "" !important; margin-left: 0 !important; }
+
+/* Mobile: same glyphs and size as desktop */
+body.mobile #site_menu .set-link > a::after,
+body.mobile #site_menu .set-link > span::after { content: "\00a0+" !important; font-size: 24px !important; }
+body.mobile #site_menu .set-link.acc-open > a::after,
+body.mobile #site_menu .set-link.acc-open > span::after { content: "\00a0\2212" !important; font-size: 24px !important; }
+/* Vertically center the +/- glyphs on their text */
+#site_menu .set-link > a::after,
+#site_menu .set-link > span::after { vertical-align: 0.12em !important; }
+/* Desktop: indent sub-items further from the parent heading */
+body:not(.mobile) #site_menu .indent .indent { padding-left: 0.75em !important; }
+/* Mobile: real toggle class is accordion-open -> show minus when expanded */
+body.mobile #site_menu .set-link.accordion-open > a::after,
+body.mobile #site_menu .set-link.accordion-open > span::after { content: "\00a0\2212" !important; font-size: 24px !important; }
+</style>

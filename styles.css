@@ -900,7 +900,7 @@ body.mobile #site_menu {
 #site_menu {
   --text-menu-headings: clamp(24px, 2.6vh, 30px); /* Recent Projects, About, News, Press */
   --text-project-menu:  clamp(20px, 2.1vh, 24px); /* Public Address, groups, truths, etc. */
-  --text-sub-menu:      clamp(18px, 1.7vh, 22px); /* Queens Museum, YBCA, sub-projects */
+  --text-sub-menu:      clamp(18px, 1.7vh, 20px); /* Queens Museum, YBCA, sub-projects */
 }
 
 #site_menu .close {
