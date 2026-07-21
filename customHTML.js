@@ -1,5 +1,5 @@
 
-<!-- Fonts --->
+<!-- Fonts -->
 <!--
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@300,400,401,500,501,600, 700&display=swap" rel="stylesheet">
 -->
@@ -214,12 +214,15 @@ if (!menu) return false;
 
 <!-- Site menu set toggles: +/- attached to title, spacing matched, correct expanded state -->
 <style>
-/* Desktop: collapsed sets show + (kept attached, roomy spacing) */
-body:not(.mobile) #site_menu .set-link > a::after,
-body:not(.mobile) #site_menu .set-link > span::after { content: "\00a0+" !important; white-space: nowrap !important; margin-left: 0.4em !important; }
-/* Desktop: expanded sets show minus */
-body:not(.mobile) #site_menu .set-link.acc-open > a::after,
-body:not(.mobile) #site_menu .set-link.acc-open > span::after { content: "\00a0\2212" !important; }
+/* Desktop: only show +/- when the menu is too tall to fit (accordion engaged) */
+@media (max-height: 1200px) {
+  /* Desktop: collapsed sets show + (kept attached, roomy spacing) */
+  body:not(.mobile) #site_menu .set-link > a::after,
+  body:not(.mobile) #site_menu .set-link > span::after { content: "\00a0+" !important; white-space: nowrap !important; margin-left: 0.4em !important; }
+  /* Desktop: expanded sets show minus */
+  body:not(.mobile) #site_menu .set-link.acc-open > a::after,
+  body:not(.mobile) #site_menu .set-link.acc-open > span::after { content: "\00a0\2212" !important; }
+}
 /* Desktop: top-level always-open set has no toggle */
 body:not(.mobile) #site_menu#site_menu > .set-link > a::after,
 body:not(.mobile) #site_menu#site_menu > .set-link > span::after { content: "" !important; margin-left: 0 !important; }
