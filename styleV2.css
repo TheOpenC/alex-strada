@@ -139,7 +139,6 @@ Mobile Breakpoints
 @media (max-width: 768px) {
   :root {
     --site-gutter: 1rem;
-    --text-base: 1rem; /* 18px */
     --menu-top-hamburger-offset: 1rem; 
     --menu-right-hamburger-offset:  .5rem;
     --menu-close-top: 0.65rem;
@@ -642,6 +641,10 @@ Sections
 .title{
   font-weight: var(--weight-bold);
 }
+
+.news h4{
+	font-weight: var(--weight-regular); 
+}
 .press-item .title{
   font-style: italic;
 }
@@ -649,7 +652,7 @@ Sections
 .event,
 .program,
 .exhibition,
-.commissionm,
+.commission,
 .screening,
 .press-title{
   font-style: italic;
@@ -1598,3 +1601,12 @@ body.mobile .audio-player {
 .audio-player .total-time {
     padding-right: 1rem;
 }
+
+
+/* Align H1 (site title) left with content on mobile */
+@media (max-width: 768px) {
+	
+    [local-style="38394821"] h1 {
+        left: 2.2rem; }
+}
+
